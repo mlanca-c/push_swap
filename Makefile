@@ -6,14 +6,14 @@
 #    By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/13 13:11:28 by mlanca-c          #+#    #+#              #
-#    Updated: 2021/05/18 19:28:09 by mlanca-c         ###   ########.fr        #
+#    Updated: 2021/05/18 20:40:30 by mlanca-c         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 	# File Name Variables #
 NAME		=	push_swap
-SRC			=	sources/push_swap.c
-INC			=	-Iincludes -Ilibft
+SRC			=	push_swap.c push_swap_utils.c
+INC			=	-Iincludes -Ilibft -Ilibft/stack
 
 	# libft Variables #
 LIBFT		=	./libft/libft.a
@@ -60,6 +60,6 @@ clean:
 fclean: clean
 	$(MAKE) fclean -C $(LIBFT_PATH)
 
-re: fclean all
+re: clean all
 
-.PHONY: all clean fclean re
+PHONY: all clean fclean re
