@@ -6,42 +6,56 @@
 #    By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/13 13:11:28 by mlanca-c          #+#    #+#              #
-#    Updated: 2021/05/14 12:59:31 by mlanca-c         ###   ########.fr        #
+#    Updated: 2021/05/18 19:28:09 by mlanca-c         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+	# File Name Variables #
 NAME		=	push_swap
-LIBFT		=	./libft/libft.a
-LIBFT_PATH	=	./libft
 SRC			=	sources/push_swap.c
 INC			=	-Iincludes -Ilibft
-CC			=	gcc
-CFLAG		=	-Wall -Wextra -Werror
-RM			=	rm -f
 
+	# libft Variables #
+LIBFT		=	./libft/libft.a
+LIBFT_PATH	=	./libft
+
+
+	# Compiling Variables #
+CC		=	gcc
+CFLAG	=	-Wall -Wextra -Werror
+CLIB	=	ar -rc
+RM		=	rm -f
+
+	# Colors #
+GREEN		=	\e[38;5;118m
+YELLOW		=	\e[38;5;226m
+RESET		=	\e[0m
+_SUCCESS	=	[$(GREEN)SUCCESS$(RESET)]
+_INFO		=	[$(YELLOW)INFO$(RESET)]
+
+	# Debugger #
 ifeq ($(DEBUG), 1)
-	D_FLAG 	=	-g
+	D_FLAG	=	-g
 endif
 
+	# Fsanitize #
 ifeq ($(SANITIZE), 1)
 	D_FLAG	=	-fsanitize=address -g
 endif
 
 $(NAME):
-	@printf "\e[1;34m\nCompiling libft:\e[0m\n\n"
-	@# Compiles Libft
 	$(MAKE) -C ./libft
-
-	@# Compile push_swap
-	@printf "\e[1;34m\nCompiling push_swap:\e[0m\n\n"
+	$(MAKE) stack -C ./libft
+	@printf "$(_INFO) Compiling ./push_swap ...\n"
 	$(CC) $(CFLAG) $(D_FLAG) $(SRC) $(INC) $(LIBFT) -o $(NAME)
-
-	@printf "\e[0;32m\nCompilation done. push_swap ready.\e[0m\n"
+	@printf "$(_SUCCESS) Compilation complete.\n"
+	@printf "$(_SUCCESS) push_swap ready.\n"
 
 all: $(NAME)
 
 clean:
 	$(RM) $(NAME)
+	@printf "$(_SUCCESS) Cleaned all object files in ./push_swap.\n"
 
 fclean: clean
 	$(MAKE) fclean -C $(LIBFT_PATH)
