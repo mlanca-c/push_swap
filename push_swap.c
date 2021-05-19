@@ -6,15 +6,13 @@
 /*   By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/18 19:31:48 by mlanca-c          #+#    #+#             */
-/*   Updated: 2021/05/18 20:17:36 by mlanca-c         ###   ########.fr       */
+/*   Updated: 2021/05/19 17:44:21 by mlanca-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
 /*
- * status: 2	- One of the command line arguments wasn't a digit.
- * status: 3	- There was a duplicate command line argument.
 */
 void	exit_program(t_stack *stack_a, t_stack *stack_b, int status)
 {
@@ -22,22 +20,22 @@ void	exit_program(t_stack *stack_a, t_stack *stack_b, int status)
 		ft_stack_clear(&stack_a);
 	if (stack_b)
 		ft_stack_clear(&stack_b);
-	if (status == 2)
-	{
-		ft_putstr_fd("Error\n", 1);
-		ft_putstr_fd("Argument is not a digit\n", 1);
-	}
-	else if (status == 3)
-	{
-		ft_putstr_fd("Error\n", 1);
-		ft_putstr_fd("Duplicate number\n", 1);
-	}
+	if (!status)
+		ft_putstr_fd("Error\n", 2);
 	exit(1);
 }
 
 /*
 */
-void	sort_stack(t_stack *stack_a, t_stack *stack_b);
+void	sort_stack(t_stack *stack_a, t_stack *stack_b)
+{
+	if (ft_stack_size(stack_a) >= 3)
+		sort_small(stack_a);
+	else if (ft_stack_size(stack_a) >= 5)
+		sort_medium(stack_a, stack_b);
+	else
+		sort_big(stack_a, stack_b);
+}
 
 /*
 ** This function is the program part of the project.
@@ -59,11 +57,9 @@ int	main(int argc, char **argv)
 		exit(1);
 	stack_a = NULL;
 	stack_b = NULL;
-	fill_stack(&argv[1], stack_a);
-	/*
-	if (!is_sorted(stack_a))
+	fill_stack(&argv[1], &stack_a);
+	if (!ft_stack_is_sorted(stack_a))
 		sort_stack(stack_a, stack_b);
-	exit_program(stack_a, stack_b);
-	*/
+	exit_program(stack_a, stack_b, 1);
 	return (0);
 }
