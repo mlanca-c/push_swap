@@ -6,13 +6,15 @@
 #    By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/13 13:11:28 by mlanca-c          #+#    #+#              #
-#    Updated: 2021/05/18 20:40:30 by mlanca-c         ###   ########.fr        #
+#    Updated: 2021/05/19 21:12:13 by mlanca-c         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 	# File Name Variables #
 NAME		=	push_swap
-SRC			=	push_swap.c push_swap_utils.c
+SRC			=	sources/push_swap.c sources/push_swap_utils.c \
+				instructions/swap_stack.c instructions/push_stack.c \
+				instructions/rotate_stack.c instructions/reverse_rotate_stack.c
 INC			=	-Iincludes -Ilibft -Ilibft/stack
 
 	# libft Variables #
