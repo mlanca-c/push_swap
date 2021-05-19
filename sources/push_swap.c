@@ -6,7 +6,7 @@
 /*   By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/18 19:31:48 by mlanca-c          #+#    #+#             */
-/*   Updated: 2021/05/19 17:44:21 by mlanca-c         ###   ########.fr       */
+/*   Updated: 2021/05/19 21:02:51 by mlanca-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ int	main(int argc, char **argv)
 
 	if (argc == 1)
 		exit(1);
-	stack_a = NULL;
-	stack_b = NULL;
+	stack_a = 0;
+	stack_b = 0;
 	fill_stack(&argv[1], &stack_a);
 	if (!ft_stack_is_sorted(stack_a))
 		sort_stack(stack_a, stack_b);
