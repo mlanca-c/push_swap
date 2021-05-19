@@ -6,33 +6,42 @@
 /*   By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/18 10:59:01 by mlanca-c          #+#    #+#             */
-/*   Updated: 2021/05/18 15:56:50 by mlanca-c         ###   ########.fr       */
+/*   Updated: 2021/05/19 20:45:50 by mlanca-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef INSTRUCTIONS_H
 # define INSTRUCTIONS_H
 
-# ifndef EXIT_FAILURE
-#  define EXIT_FAILURE "Error\n"
-# endif
+/*
+** Swap Instructions:
+** For swapping the first two numbers of the respective stacks.
+*/
+void	swap_stack_a(t_stack *stack_a);
+void	swap_stack_b(t_stack *stack_b);
+void	swap_stacks(t_stack *stack_a, t_stack *stack_b);
 
-# ifndef EXIT_SUCCESS
-#  define EXIT_SUCCESS "OK\n"
-# endif
+/*
+** Push Instructions:
+** For pushing the first number of a stack to the other stack respectively.
+*/
+void	push_stack_a(t_stack **stack_a, t_stack **stack_b);
+void	push_stack_b(t_stack **stack_b, t_stack **stack_a);
 
-exit(EXIT_FAILURE);
+/*
+** Rotate Instructions:
+** To rotate a stack respectively.
+*/
+void	rotate_stack_a(t_stack **stack_a);
+void	rotate_stack_b(t_stack **stack_b);
+void	rotate_stacks(t_stack **stack_a, t_stack **stack_b);
 
-void	swap_a();
-void	swap_b();
-void	swap_s();
-void	push_a();
-void	push_b();
-void	rotate_a();
-void	rotate_b();
-void	rotate_r();
-void	reverse_rotate_a();
-void	reverse_rotate_b();
-void	reverse_rotate_r();
+/*
+** Reverse Rotate Instructions:
+** To reverse rotate a stack respectively.
+*/
+void	reverse_rotate_stack_a(t_stack **stack_a);
+void	reverse_rotate_stack_b(t_stack **stack_b);
+void	reverse_rotate_stacks(t_stack **stack_a, t_stack **stack_b);
 
 #endif
