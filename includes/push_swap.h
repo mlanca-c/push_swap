@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/13 13:29:29 by mlanca-c          #+#    #+#             */
-/*   Updated: 2021/05/19 19:57:35 by mlanca-c         ###   ########.fr       */
+/*   Created: 2021/05/20 18:59:26 by mlanca-c          #+#    #+#             */
+/*   Updated: 2021/05/20 19:50:54 by mlanca-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,29 @@
 # define PUSH_SWAP_H
 
 # include "libft.h"
-# include "instructions.h"
-#include <stdio.h>
 
-void	fill_stack(char **argv, t_stack **stack_a);
-void	exit_program(t_stack *stack_a, t_stack *stack_b, int status);
+/*
+** push_swap.c Functions
+*/
+void	move_to_stack(char **argv, t_stack **stack_a);
+void	exit_push_swap(t_stack *stack_a, t_stack *stack_b, int status);
+
+/*
+** instructions.c Functions
+*/
+void	swap_stack(t_stack *mandatory, t_stack *optional, char *message);
+void	push_stack(t_stack **from_stack, t_stack **to_stack, char *message);
+void	rotate_stack(t_stack **mandatory, t_stack **optional, char *message);
+void	reverse_rotate_stack(t_stack **mandatory,
+			t_stack **optional,
+			char *message);
+
+/*
+** sorting_algorithm.c Functions
+*/
+void	sort_stack(t_stack **stack_a, t_stack **stack_b);
+void	sorting_small_algorithm(t_stack **stack_a);
+void	sorting_medium_algorithm(t_stack **stack_a, t_stack **stack_b);
+void	sorting_big_algorithm(t_stack **stack_a, t_stack **stack_b);
 
 #endif
