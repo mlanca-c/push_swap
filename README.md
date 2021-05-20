@@ -1,6 +1,14 @@
 # push_swap
  42Cursus-push_swap/42Lisboa 
 
+# Usage
+
+ ```Shell
+ $ git clone --recursive git@github.com:mlanca-c/push_swap.git
+ $ cd push_swap
+ $ make
+ ```
+
 # Intro
 
  > [subject](subject.pdf)
