@@ -6,15 +6,14 @@
 #    By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/13 13:11:28 by mlanca-c          #+#    #+#              #
-#    Updated: 2021/05/19 21:12:13 by mlanca-c         ###   ########.fr        #
+#    Updated: 2021/05/20 22:37:40 by mlanca-c         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 	# File Name Variables #
 NAME		=	push_swap
-SRC			=	sources/push_swap.c sources/push_swap_utils.c \
-				instructions/swap_stack.c instructions/push_stack.c \
-				instructions/rotate_stack.c instructions/reverse_rotate_stack.c
+SRC			=	sources/push_swap.c sources/instructions.c \
+				sources/sort_stack.c sources/sort_stack_utils.c
 INC			=	-Iincludes -Ilibft -Ilibft/stack
 
 	# libft Variables #
@@ -46,8 +45,7 @@ ifeq ($(SANITIZE), 1)
 endif
 
 $(NAME):
-	$(MAKE) -C ./libft
-	$(MAKE) stack -C ./libft
+	$(MAKE) DEBUG=$(DEBUG) -C ./libft
 	@printf "$(_INFO) Compiling ./push_swap ...\n"
 	$(CC) $(CFLAG) $(D_FLAG) $(SRC) $(INC) $(LIBFT) -o $(NAME)
 	@printf "$(_SUCCESS) Compilation complete.\n"
