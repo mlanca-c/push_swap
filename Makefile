@@ -6,7 +6,7 @@
 #    By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/13 13:11:28 by mlanca-c          #+#    #+#              #
-#    Updated: 2021/05/23 23:28:25 by mlanca-c         ###   ########.fr        #
+#    Updated: 2021/05/24 17:48:51 by mlanca-c         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,19 +60,17 @@ $(NAME):
 	@ $(MAKE) DEBUG=$(DEBUG) -C ./libft
 	@printf "$(_INFO) Compiling push_swap ...\n"
 	@ $(CC) $(CFLAG) $(D_FLAG) $(SRC) $(INC) $(LIBFT) -o $(NAME)
-	@printf "$(_SUCCESS) Compilation complete.\n"
 	@printf "$(_SUCCESS) push_swap ready.\n"
 
 $(CHECKER):
 	@ $(MAKE) DEBUG=$(DEBUG) -C ./libft
 	@printf "$(_INFO) Compiling checker ...\n"
 	@ $(CC) $(CFLAG) $(D_FLAG) $(SRC_B) $(INC) $(LIBFT) -o $(CHECKER)
-	@printf "$(_SUCCESS) Compilation complete.\n"
 	@printf "$(_SUCCESS) checker ready.\n"
 
 clean:
 	@ $(RM) $(NAME)
-	@printf "$(_SUCCESS) Cleaned all object files in ./push_swap.\n"
+	@printf "$(_INFO) Cleaned all object files in ./push_swap.\n"
 
 fclean: clean
 	@ $(MAKE) fclean -C $(LIBFT_DIR)
