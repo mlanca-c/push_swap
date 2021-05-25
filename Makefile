@@ -6,7 +6,7 @@
 #    By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/13 13:11:28 by mlanca-c          #+#    #+#              #
-#    Updated: 2021/05/25 18:36:44 by mlanca-c         ###   ########.fr        #
+#    Updated: 2021/05/25 18:49:11 by mlanca-c         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,6 @@ ifeq ($(SANITIZE), 1)
 	D_FLAG	=	-fsanitize=address -g
 endif
 
-all:		$(NAME)
 mandatory:	$(NAME)
 bonus:		$(CHECKER)
 
@@ -63,6 +62,8 @@ $(NAME):
 	@printf "$(_INFO) Compiling push_swap ...\n"
 	@ $(CC) $(CFLAG) $(D_FLAG) $(SRC_A) $(INC) $(LIBFT) -o $(NAME)
 	@printf "$(_SUCCESS) push_swap ready.\n"
+
+all:		$(NAME) $(CHECKER)
 
 $(CHECKER):
 	@ $(MAKE) DEBUG=$(DEBUG) -C ./libft
