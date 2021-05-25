@@ -6,20 +6,22 @@
 #    By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/13 13:11:28 by mlanca-c          #+#    #+#              #
-#    Updated: 2021/05/24 17:48:51 by mlanca-c         ###   ########.fr        #
+#    Updated: 2021/05/25 18:36:44 by mlanca-c         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 	# push_swap (Mandatory) Part Variables #
-PS_DIR	=	./sources/push_swap
-NAME	=	push_swap
-SRC		=	$(PS_DIR)/push_swap.c $(PS_DIR)/instructions.c $(PS_DIR)/sorting.c \
-			$(PS_DIR)/sorting_utils.c
+NAME		=	push_swap
+SRC_A		=	sources/push_swap.c \
+				$(SRC_C)
+
+	# common files of mandatory and bonus Variables #
+SRC_C		=	sources/instructions.c sources/push_swap_utils.c
 
 	# checker (Bonus) Part Variables #
-CHECKER_DIR	=	./sources/checker
 CHECKER		=	checker
-SRC_B		=	$(CHECKER_DIR)/checker.c
+SRC_B		=	sources/checker.c sources/checker_utils.c \
+				$(SRC_C)
 
 	# libft Variables #
 LIBFT		=	./libft/libft.a
@@ -59,7 +61,7 @@ bonus:		$(CHECKER)
 $(NAME):
 	@ $(MAKE) DEBUG=$(DEBUG) -C ./libft
 	@printf "$(_INFO) Compiling push_swap ...\n"
-	@ $(CC) $(CFLAG) $(D_FLAG) $(SRC) $(INC) $(LIBFT) -o $(NAME)
+	@ $(CC) $(CFLAG) $(D_FLAG) $(SRC_A) $(INC) $(LIBFT) -o $(NAME)
 	@printf "$(_SUCCESS) push_swap ready.\n"
 
 $(CHECKER):
@@ -69,10 +71,11 @@ $(CHECKER):
 	@printf "$(_SUCCESS) checker ready.\n"
 
 clean:
-	@ $(RM) $(NAME)
+	@ $(MAKE) fclean -C $(LIBFT_DIR)
 	@printf "$(_INFO) Cleaned all object files in ./push_swap.\n"
 
 fclean: clean
+	@ $(RM) $(NAME) $(CHECKER)
 	@ $(MAKE) fclean -C $(LIBFT_DIR)
 
 re: fclean all
