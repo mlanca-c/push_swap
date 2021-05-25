@@ -6,7 +6,7 @@
 /*   By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/25 10:39:52 by mlanca-c          #+#    #+#             */
-/*   Updated: 2021/05/25 19:50:59 by mlanca-c         ###   ########.fr       */
+/*   Updated: 2021/05/25 20:05:52 by mlanca-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,11 @@ void	get_instructions(t_stack **stack_a, t_list **instructions)
 	{
 		new_node = ft_lstnew(line);
 		if (!(!ft_strcmp("sa", line) || !ft_strcmp("sb", line)
-			|| !ft_strcmp("ss", line) || !ft_strcmp("pa", line)
-			|| !ft_strcmp("pb", line) || !ft_strcmp("ra", line)
-			|| !ft_strcmp("rb", line) || !ft_strcmp("rr", line)
-			|| !ft_strcmp("rra", line) || !ft_strcmp("rrb", line)
-			|| !ft_strcmp("rrr", line) ) || !new_node)
+				|| !ft_strcmp("ss", line) || !ft_strcmp("pa", line)
+				|| !ft_strcmp("pb", line) || !ft_strcmp("ra", line)
+				|| !ft_strcmp("rb", line) || !ft_strcmp("rr", line)
+				|| !ft_strcmp("rra", line) || !ft_strcmp("rrb", line)
+				|| !ft_strcmp("rrr", line)) || !new_node)
 		{
 			free(line);
 			exit_checker(*stack_a, 0, *instructions, 0);
