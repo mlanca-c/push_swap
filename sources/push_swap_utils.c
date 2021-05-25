@@ -6,7 +6,7 @@
 /*   By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 19:10:56 by mlanca-c          #+#    #+#             */
-/*   Updated: 2021/05/25 10:34:38 by mlanca-c         ###   ########.fr       */
+/*   Updated: 2021/05/25 19:23:11 by mlanca-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,18 +50,18 @@ void	move_to_stack(char **argv, t_stack **stack_a)
 }
 
 /*
- * This function ends the program either if successful or if Error.
- *
- * @param	t_stack	*stack_a	- program's 'stack_a' in case it needs freeing.
- * @param	t_stack	*stack_b	- program's 'stack_b' in case it needs freeing.
- * @param	int		status		- status of program
- * 						0 - In case of crash - end of program with "Error\n"
- * 							caused by a malloc crash; ot in case it's invalid -
- * 							end of program with "Error'n" caused by the command
- * 							line arguments - 'argv' not being valid. stack_a
- * 							needs to be freed.
- * 						1 -	In case of success - end of program without any
- * 							problems. Everything needs to be freed accordingly.
+** This function ends the program either if successful or in case of Error.
+**
+** @param	t_stack	*stack_a	- program's 'stack_a' in case it needs freeing.
+** @param	t_stack	*stack_b	- program's 'stack_b' in case it needs freeing.
+** @param	int		status		- status of program
+** 						0 - In case of crash - end of program with "Error\n"
+** 							caused by a malloc crash; or in case it's invalid -
+** 							end of program with "Error'n" caused by the command
+** 							line arguments - 'argv' not being valid.
+** 							Only stack_a needs to be freed.
+** 						1 -	In case of success - end of program without any
+** 							problems. Everything needs to be freed accordingly.
 */
 void	exit_push_swap(t_stack *stack_a, t_stack *stack_b, int status)
 {

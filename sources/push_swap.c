@@ -6,7 +6,7 @@
 /*   By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/23 19:17:46 by mlanca-c          #+#    #+#             */
-/*   Updated: 2021/05/24 19:18:32 by mlanca-c         ###   ########.fr       */
+/*   Updated: 2021/05/25 19:20:41 by mlanca-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ int	main(int argc, char **argv)
 ** This function selects the type of sorting algorithm based in the size of
 ** 'stack_a'.
 ** 		if stack's size:
-** 		- less than 3: sort_stack_small() function is called.
-** 		- 4 or 5: sort_stack_medium() function is called.
-** 		- more than 5: sort_stack_big() function is called.
+** 		- is less than 3: sort_stack_small() function is called.
+** 		- is 4 or 5: sort_stack_medium() function is called.
+** 		- is more than 5: sort_stack_big() function is called.
 **
 ** @param	t_stack	**stack_a	- stack that contains the integers to be sorted.
 ** @param	t_stack	**stack_a	- helper stack, used to help sort stack_a.
@@ -60,20 +60,20 @@ void	get_sorting(t_stack **stack_a, t_stack **stack_b)
 /*
 ** This function sorts stack_a of size less than 3. Only three types of
 ** instructions are used: rra, ra, sa.
-** @line 65:	in here we check if the second element of stack_a corresponds to
+** @line 89:	in here we check if the second element of stack_a corresponds to
 ** 				the maximum value of the stack, and if the first one isn't the
 ** 				minimum value - example: 2 3 1 - Here the solution is simple,
 ** 				to sort this algorithm we need to reverse rotate the stack.
 **
-** @line 68:	here we check if the first element of stack_a corresponds to
+** @line 92:	here we check if the first element of stack_a corresponds to
 ** 				the minimum value of the stack, and if the second one isn't the
 ** 				maximum value - example: 3 1 2 - Here the solution is simple,
 ** 				to sort this algorithm we need to reverse the stack.
 **
-** @line 71:	if none of the above is the case, we swap the first two elements
+** @line 95:	if none of the above is the case, we swap the first two elements
 ** 				of stack_a either to sort it or to then reverse rotate or
 ** 				rotate - example: 3 2 1 - Here the solution is simple, to sort
-** 				this algorithm we swap the first two algorithm - 2 3 1 - to then
+** 				this algorithm we swap the first two numbers - 2 3 1 - to then
 ** 				reverse rotate them - 1 2 3.
 **
 */
@@ -98,17 +98,27 @@ void	sorting_small_algorithm(t_stack **stack_a)
 }
 
 /*
- * This function sorts stack_a of size between 4 and 5. The logic behind this
- * algorithm is simply divided in three steps:
- * 		1st step:		call the push_stack() instructions to push the two
- * 	   @line 93,94		smallest numbers of stack_a to stack_b.
- *
- * 		2nd step:		once stack_a contains only three integers to sort, call
- * 		@line 95		the sorting_small_algorithm() function to sort stack_a.
- *
- * 		3rd step:		
- * 		@line		
- *
+** This function sorts stack_a of size between 4 and 5. The logic behind this
+** algorithm is simply divided in three steps:
+**
+** @line 125,126:	call the push_stack() instructions to push the two smallest
+** 					numbers of stack_a to stack_b - for example:
+** 					stack_a is 3 2 5 1 4 - we want stack_b to have pushed the
+** 					numbers 1 and 2, and stack_a would have: 3 5 4
+**
+** @line 127:		once stack_a contains only three integers to sort, call
+** 					the sorting_small_algorithm() function to sort stack_a.
+** 					Following the above example, stack_a would now be: 3 4 5.
+**
+** @line 129:		finnaly the program only needs to push stack_b's numbers
+** 					back to stack_a.
+** 					before:
+** 						stack_a: 3 4 5
+** 						stack_b: 2 1
+** 					after:
+** 						stack_a: 1 2 3 4 5
+** 						stack_b: -
+**
 */
 void	sorting_medium_algorithm(t_stack **stack_a, t_stack **stack_b)
 {
@@ -119,4 +129,8 @@ void	sorting_medium_algorithm(t_stack **stack_a, t_stack **stack_b)
 		push_stack(stack_b, stack_a, "pa\n");
 }
 
+/*
+ * This function sorts stacks of size bigger than 5. The logic behind this
+ * algorithm is a bit more complicated, but I'll try to explain it anyway.
+*/
 void	sorting_big_algorithm(t_stack **stack_a, t_stack **stack_b);
