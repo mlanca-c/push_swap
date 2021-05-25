@@ -6,7 +6,7 @@
 #    By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/13 13:11:28 by mlanca-c          #+#    #+#              #
-#    Updated: 2021/05/25 18:49:11 by mlanca-c         ###   ########.fr        #
+#    Updated: 2021/05/25 19:52:03 by mlanca-c         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ SRC_C		=	sources/instructions.c sources/push_swap_utils.c
 
 	# checker (Bonus) Part Variables #
 CHECKER		=	checker
-SRC_B		=	sources/checker.c sources/checker_utils.c \
+SRC_B		=	sources/checker.c \
 				$(SRC_C)
 
 	# libft Variables #
@@ -73,11 +73,11 @@ $(CHECKER):
 
 clean:
 	@ $(MAKE) fclean -C $(LIBFT_DIR)
-	@printf "$(_INFO) Cleaned all object files in ./push_swap.\n"
 
-fclean: clean
+fclean:
 	@ $(RM) $(NAME) $(CHECKER)
 	@ $(MAKE) fclean -C $(LIBFT_DIR)
+	@printf "$(_INFO) push_swap and checker.\n"
 
 re: fclean all
 
