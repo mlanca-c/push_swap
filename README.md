@@ -6,7 +6,7 @@
  ```
  git clone --recursive git@github.com:mlanca-c/push_swap.git
  cd push_swap
- make
+ make all
  ```
 
 # Intro
