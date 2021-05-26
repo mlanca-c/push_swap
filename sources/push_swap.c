@@ -6,7 +6,7 @@
 /*   By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/23 19:17:46 by mlanca-c          #+#    #+#             */
-/*   Updated: 2021/05/25 19:20:41 by mlanca-c         ###   ########.fr       */
+/*   Updated: 2021/05/26 11:47:03 by mlanca-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,16 @@ void	sorting_medium_algorithm(t_stack **stack_a, t_stack **stack_b)
 
 /*
  * This function sorts stacks of size bigger than 5. The logic behind this
- * algorithm is a bit more complicated, but I'll try to explain it anyway.
+ * algorithm is a bit more complicated, but I'll try to explain it anyway:
+ *
+ * first step
 */
-void	sorting_big_algorithm(t_stack **stack_a, t_stack **stack_b);
+void	sorting_big_algorithm(t_stack **stack_a, t_stack **stack_b)
+{
+	t_stack	*limits;
+
+	get_stack_limits(*stack_a, limits);
+	ft_putstr_fd("a: "); ft_stack_print(*stack_a);
+	ft_putstr_fd("b: "); ft_stack_print(*stack_b);
+	ft_putstr_fd("limits: "); ft_stack_print(limits);
+}
