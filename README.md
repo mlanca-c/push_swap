@@ -1,12 +1,19 @@
 # push_swap
  42Cursus-push_swap/42Lisboa 
 
-# Usage
+# Cloning
 
  ```
  git clone --recursive git@github.com:mlanca-c/push_swap.git
  cd push_swap
  make all
+ ```
+
+# Usage 
+
+ ```
+ ARG="<random numbers>";./push_swap $ARG | ./checker [-v] $ARG
+ ARG="<random numbers>";./push_swap $ARG | wc -l
  ```
 
 # Intro
@@ -42,3 +49,10 @@
  * ```rra``` : **reverse rotate a** - shift down all elements of stackaby 1. The last element becomes the first one.
  * ```rrb``` : **reverse rotate b** - shift down all elements of stackbby 1. The last element becomes the first one.
  * ```rrr``` : rra and rrb at the same time.
+
+# Useful links
+
+ * [Project Explanation](https://medium.com/@jamierobertdawson/push-swap-the-least-amount-of-moves-with-two-stacks-d1e76a71789a)
+ * [Double Linked List - implementation](https://www.geeksforgeeks.org/doubly-linked-list/)
+ * [Merge-Sort Implementation and Explanation](https://www.geeksforgeeks.org/merge-sort-for-linked-list/)
+ * [Random Number Generator](https://numbergenerator.org/)
