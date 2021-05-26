@@ -6,7 +6,7 @@
 /*   By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/25 10:39:52 by mlanca-c          #+#    #+#             */
-/*   Updated: 2021/05/25 20:05:52 by mlanca-c         ###   ########.fr       */
+/*   Updated: 2021/05/26 13:06:55 by mlanca-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,21 +23,33 @@
 ** @param	int		argc	- number of command line arguments.
 ** @param	char	*argv	- executable file plus digits to fill in the stack
 ** 							and get sorted.
+**
+** Later on I decided to add a visualizer option to the project. It's possible
+** To check what happens with the sorting by compiling the checker part with a
+** flag "-v"
 */
 int	main(int argc, char **argv)
 {
 	t_stack	*stack_a;
 	t_stack	*stack_b;
 	t_list	*instructions;
+	char	mode;
 
-	if (argc == 1)
+	if (argc == 1 || (argc == 2 && !ft_strcmp("-v", argv[1])))
 		exit(1);
 	stack_a = 0;
 	stack_b = 0;
 	instructions = 0;
-	move_to_stack(&argv[1], &stack_a);
+	mode = 0;
+	if (!ft_strcmp("-v", argv[1]))
+	{
+		move_to_stack(&argv[2], &stack_a);
+		mode = 'v';
+	}
+	else
+		move_to_stack(&argv[1], &stack_a);
 	get_instructions(&stack_a, &instructions);
-	call_instruction(&stack_a, &stack_b, instructions);
+	call_instruction(&stack_a, &stack_b, instructions, mode);
 	if (ft_stack_is_sorted(stack_a) && !stack_b)
 		exit_checker(stack_a, stack_b, instructions, 2);
 	exit_checker(stack_a, stack_b, instructions, 1);
@@ -85,11 +97,17 @@ void	get_instructions(t_stack **stack_a, t_list **instructions)
 ** @param	t_list	*instructions	- list of instructions.
 */
 void	call_instruction(t_stack **stack_a, t_stack **stack_b,
-			t_list	*instructions)
+			t_list	*instructions, char mode)
 {
+	if (mode)
+		print_both_stacks(*stack_a, *stack_b, "init");
 	while (instructions)
 	{
-		implement_instruction(stack_a, stack_b, (char *)instructions->content);
+		implement_instruction(stack_a, stack_b,
+			(char *)instructions->content);
+		if (mode)
+			print_both_stacks(*stack_a, *stack_b,
+				(char *)instructions->content);
 		instructions = instructions->next;
 	}
 }
