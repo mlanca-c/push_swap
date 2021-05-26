@@ -6,7 +6,7 @@
 /*   By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 19:12:39 by mlanca-c          #+#    #+#             */
-/*   Updated: 2021/05/25 17:20:32 by mlanca-c         ###   ########.fr       */
+/*   Updated: 2021/05/26 12:05:00 by mlanca-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 void	move_to_stack(char **argv, t_stack **stack_a);
 void	exit_push_swap(t_stack *stack_a, t_stack *stack_b, int status);
 void	push_min_to_b(t_stack **stack_a, t_stack **stack_b);
+void	get_stack_limits(t_stack *stack_a, t_stack *limits);
 
 /*
 ** instructions.c Functions
