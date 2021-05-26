@@ -6,7 +6,7 @@
 #    By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/13 13:11:28 by mlanca-c          #+#    #+#              #
-#    Updated: 2021/05/25 19:52:03 by mlanca-c         ###   ########.fr        #
+#    Updated: 2021/05/26 13:22:14 by mlanca-c         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ SRC_C		=	sources/instructions.c sources/push_swap_utils.c
 
 	# checker (Bonus) Part Variables #
 CHECKER		=	checker
-SRC_B		=	sources/checker.c \
+SRC_B		=	sources/checker.c sources/checker_utils.c \
 				$(SRC_C)
 
 	# libft Variables #
@@ -59,7 +59,6 @@ bonus:		$(CHECKER)
 
 $(NAME):
 	@ $(MAKE) DEBUG=$(DEBUG) -C ./libft
-	@printf "$(_INFO) Compiling push_swap ...\n"
 	@ $(CC) $(CFLAG) $(D_FLAG) $(SRC_A) $(INC) $(LIBFT) -o $(NAME)
 	@printf "$(_SUCCESS) push_swap ready.\n"
 
@@ -67,7 +66,6 @@ all:		$(NAME) $(CHECKER)
 
 $(CHECKER):
 	@ $(MAKE) DEBUG=$(DEBUG) -C ./libft
-	@printf "$(_INFO) Compiling checker ...\n"
 	@ $(CC) $(CFLAG) $(D_FLAG) $(SRC_B) $(INC) $(LIBFT) -o $(CHECKER)
 	@printf "$(_SUCCESS) checker ready.\n"
 
