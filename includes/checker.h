@@ -6,7 +6,7 @@
 /*   By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/23 23:38:08 by mlanca-c          #+#    #+#             */
-/*   Updated: 2021/05/25 19:36:18 by mlanca-c         ###   ########.fr       */
+/*   Updated: 2021/05/26 12:19:51 by mlanca-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,14 @@ int		instruction_is_valid(char *line);
 void	implement_instruction(t_stack **stack_a, t_stack **stack_b,
 			char *instruction);
 void	call_instruction(t_stack **stack_a, t_stack **stack_b,
-			t_list	*instructions);
+			t_list	*instructions,
+			char mode);
 void	exit_checker(t_stack *stack_a, t_stack *stack_b, t_list *instructions,
 			int status);
 
 /*
 ** checker_utils.c Functions
 */
+void	print_both_stacks(t_stack *stack_a, t_stack *stack_b, char *message);
 
 #endif
