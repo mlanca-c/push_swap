@@ -16,6 +16,17 @@
  ARG="<random numbers>";./push_swap $ARG | wc -l
  ```
 
+# Exaple
+
+ If you input the following:
+ ```
+ ARG="0 2 1";./push_swap $ARG |./checker -v $ARG > log3
+ ```
+ you get the following output:
+ ![](visualizer.png)
+
+
+
 # Intro
 
  > [subject](subject.pdf)
