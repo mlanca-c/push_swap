@@ -6,7 +6,7 @@
 /*   By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/26 12:20:09 by mlanca-c          #+#    #+#             */
-/*   Updated: 2021/05/26 13:20:58 by mlanca-c         ###   ########.fr       */
+/*   Updated: 2021/05/26 13:26:45 by mlanca-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include <stdio.h>
 
 /*
+** This is a helper function of print_both_stacks() function. It checks what
+** case of printing the string should be doing.
 */
 void	print_stacks(t_stack **stack_a, t_stack **stack_b, int *size_a,
 		int *size_b)
@@ -37,6 +39,10 @@ void	print_stacks(t_stack **stack_a, t_stack **stack_b, int *size_a,
 }
 
 /*
+** This function is an extra function I decided to add in my projec. It prints
+** both stacks, and the message given - instruction
+** This function calls print_stacks() function to help printing stacks in a more
+** visually friendly manner.
 */
 void	print_both_stacks(t_stack *stack_a, t_stack *stack_b, char *message)
 {
