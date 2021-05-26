@@ -12,7 +12,7 @@
 # Usage 
 
  ```
- ARG="<random numbers>";./push_swap $ARG | ./checker [-v] $ARG
+ ARG="<random numbers>";./push_swap $ARG | ./checker [-v] $ARG [> visualizer]
  ARG="<random numbers>";./push_swap $ARG | wc -l
  ```
 
