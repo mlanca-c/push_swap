@@ -6,7 +6,7 @@
 /*   By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 19:10:56 by mlanca-c          #+#    #+#             */
-/*   Updated: 2021/05/25 19:23:11 by mlanca-c         ###   ########.fr       */
+/*   Updated: 2021/05/26 11:47:33 by mlanca-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,16 @@ void	exit_push_swap(t_stack *stack_a, t_stack *stack_b, int status)
 }
 
 /*
- * This function pushes the two integers smallest integers from stack_a to
- * stack_b.
+** This function pushes the two integers smallest integers from stack_a to
+** stack_b.
+** The push_min_to_b() function is a helper function of the 
+** sorting_medium_algorithm() function. It iterates stack_a searching for its
+** minimum value integer by rotating or reverse rotating the stack, and then -
+** once the minimum value is at the top - push_stack() function is called to 
+** push it to stack_b.
+**
+** @param	t_stack	**stack_a	- stack to iterate in search of minimum value.
+** @param	t_stack	**stack_a	- stack to push minimum value integer to.
 */
 void	push_min_to_b(t_stack **stack_a, t_stack **stack_b)
 {
@@ -94,4 +102,15 @@ void	push_min_to_b(t_stack **stack_a, t_stack **stack_b)
 			rotate_stack(stack_a, 0, "ra\n");
 	}
 	push_stack(stack_a, stack_b, "pb\n");
+}
+
+/*
+*/
+void	get_stack_limits(t_stack *stack_a, t_stack *limits)
+{
+	t_stack	*temporary;
+
+	ft_stack_duplicate(stack_a, temporary);
+	ft_stack_sort(temporary);
+	while ()
 }
