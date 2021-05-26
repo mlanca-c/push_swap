@@ -6,7 +6,7 @@
 /*   By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 19:10:56 by mlanca-c          #+#    #+#             */
-/*   Updated: 2021/05/26 11:47:33 by mlanca-c         ###   ########.fr       */
+/*   Updated: 2021/05/26 12:11:15 by mlanca-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,15 +102,4 @@ void	push_min_to_b(t_stack **stack_a, t_stack **stack_b)
 			rotate_stack(stack_a, 0, "ra\n");
 	}
 	push_stack(stack_a, stack_b, "pb\n");
-}
-
-/*
-*/
-void	get_stack_limits(t_stack *stack_a, t_stack *limits)
-{
-	t_stack	*temporary;
-
-	ft_stack_duplicate(stack_a, temporary);
-	ft_stack_sort(temporary);
-	while ()
 }

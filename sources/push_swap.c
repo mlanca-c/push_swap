@@ -6,7 +6,7 @@
 /*   By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/23 19:17:46 by mlanca-c          #+#    #+#             */
-/*   Updated: 2021/05/26 11:47:03 by mlanca-c         ###   ########.fr       */
+/*   Updated: 2021/05/26 12:40:51 by mlanca-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,10 +137,6 @@ void	sorting_medium_algorithm(t_stack **stack_a, t_stack **stack_b)
 */
 void	sorting_big_algorithm(t_stack **stack_a, t_stack **stack_b)
 {
-	t_stack	*limits;
-
-	get_stack_limits(*stack_a, limits);
-	ft_putstr_fd("a: "); ft_stack_print(*stack_a);
-	ft_putstr_fd("b: "); ft_stack_print(*stack_b);
-	ft_putstr_fd("limits: "); ft_stack_print(limits);
+	ft_putstr_fd("a: ", 1); ft_stack_print(*stack_a);
+	ft_putstr_fd("b: ", 1); ft_stack_print(*stack_b);
 }
