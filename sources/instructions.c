@@ -6,11 +6,11 @@
 /*   By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/23 19:17:42 by mlanca-c          #+#    #+#             */
-/*   Updated: 2021/05/23 22:10:21 by mlanca-c         ###   ########.fr       */
+/*   Updated: 2021/05/26 15:58:37 by mlanca-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "utils.h"
 
 /*
 ** This function swaps the first 2 elements at the top of a stack - either

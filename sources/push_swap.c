@@ -6,7 +6,7 @@
 /*   By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/23 19:17:46 by mlanca-c          #+#    #+#             */
-/*   Updated: 2021/05/26 12:40:51 by mlanca-c         ###   ########.fr       */
+/*   Updated: 2021/05/26 17:14:22 by mlanca-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,26 +51,36 @@ int	main(int argc, char **argv)
 */
 void	get_sorting(t_stack **stack_a, t_stack **stack_b)
 {
+	t_stack	*chunks;
+	int		maximum;
+	int		minimum;
+
+	maximum = ft_stack_max_value(*stack_a);
+	minimum = ft_stack_min_value(*stack_a);
+	chunks = ft_stack_new(minimum);
+	ft_stack_add_back(&chunks, ft_stack_new(maximum));
 	if (ft_stack_size(*stack_a) <= 3)
 		sorting_small_algorithm(stack_a);
 	else if (ft_stack_size(*stack_a) <= 5)
 		sorting_medium_algorithm(stack_a, stack_b);
+	else
+		sorting_big_algorithm(stack_a, stack_b, &chunks);
 }
 
 /*
 ** This function sorts stack_a of size less than 3. Only three types of
 ** instructions are used: rra, ra, sa.
-** @line 89:	in here we check if the second element of stack_a corresponds to
+** @line 99:	in here we check if the second element of stack_a corresponds to
 ** 				the maximum value of the stack, and if the first one isn't the
 ** 				minimum value - example: 2 3 1 - Here the solution is simple,
 ** 				to sort this algorithm we need to reverse rotate the stack.
 **
-** @line 92:	here we check if the first element of stack_a corresponds to
+** @line 102:	here we check if the first element of stack_a corresponds to
 ** 				the minimum value of the stack, and if the second one isn't the
 ** 				maximum value - example: 3 1 2 - Here the solution is simple,
 ** 				to sort this algorithm we need to reverse the stack.
 **
-** @line 95:	if none of the above is the case, we swap the first two elements
+** @line 105:	if none of the above is the case, we swap the first two elements
 ** 				of stack_a either to sort it or to then reverse rotate or
 ** 				rotate - example: 3 2 1 - Here the solution is simple, to sort
 ** 				this algorithm we swap the first two numbers - 2 3 1 - to then
@@ -101,16 +111,16 @@ void	sorting_small_algorithm(t_stack **stack_a)
 ** This function sorts stack_a of size between 4 and 5. The logic behind this
 ** algorithm is simply divided in three steps:
 **
-** @line 125,126:	call the push_stack() instructions to push the two smallest
+** @line 135,136:	call the push_stack() instructions to push the two smallest
 ** 					numbers of stack_a to stack_b - for example:
 ** 					stack_a is 3 2 5 1 4 - we want stack_b to have pushed the
 ** 					numbers 1 and 2, and stack_a would have: 3 5 4
 **
-** @line 127:		once stack_a contains only three integers to sort, call
+** @line 137:		once stack_a contains only three integers to sort, call
 ** 					the sorting_small_algorithm() function to sort stack_a.
 ** 					Following the above example, stack_a would now be: 3 4 5.
 **
-** @line 129:		finnaly the program only needs to push stack_b's numbers
+** @line 139:		finnaly the program only needs to push stack_b's numbers
 ** 					back to stack_a.
 ** 					before:
 ** 						stack_a: 3 4 5
@@ -132,11 +142,19 @@ void	sorting_medium_algorithm(t_stack **stack_a, t_stack **stack_b)
 /*
  * This function sorts stacks of size bigger than 5. The logic behind this
  * algorithm is a bit more complicated, but I'll try to explain it anyway:
+ * I decided to separate the algorithm in two different phases: the split phase,
+ * and the merge phase.
+ *
+ * Split Phase:
+ * 	This phase is focused in oushing to stack_b, the number in between a certain
+ * 	chunk. The instructions used for this part are "ra", "rra", and "pb". This
+ * 	phase ends when all the numbers of the chunk are in stack_b.
  *
  * first step
 */
-void	sorting_big_algorithm(t_stack **stack_a, t_stack **stack_b)
+void	sorting_big_algorithm(t_stack **stack_a, t_stack **stack_b,
+		t_stack **chunks)
 {
-	ft_putstr_fd("a: ", 1); ft_stack_print(*stack_a);
-	ft_putstr_fd("b: ", 1); ft_stack_print(*stack_b);
+	get_chunks(stack_a, chunks);
+	split_a_to_b(stack_a, stack_b, chunks);
 }

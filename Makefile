@@ -6,17 +6,17 @@
 #    By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/13 13:11:28 by mlanca-c          #+#    #+#              #
-#    Updated: 2021/05/26 13:22:14 by mlanca-c         ###   ########.fr        #
+#    Updated: 2021/05/26 16:00:10 by mlanca-c         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 	# push_swap (Mandatory) Part Variables #
 NAME		=	push_swap
-SRC_A		=	sources/push_swap.c \
+SRC_A		=	sources/push_swap.c sources/push_swap_utils.c \
 				$(SRC_C)
 
 	# common files of mandatory and bonus Variables #
-SRC_C		=	sources/instructions.c sources/push_swap_utils.c
+SRC_C		=	sources/instructions.c sources/utils.c \
 
 	# checker (Bonus) Part Variables #
 CHECKER		=	checker
