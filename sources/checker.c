@@ -184,3 +184,4 @@ void	exit_checker(t_stack *stack_a, t_stack *stack_b, t_list *instructions,
 	}
 	exit(EXIT_FAILURE);
 }
+	

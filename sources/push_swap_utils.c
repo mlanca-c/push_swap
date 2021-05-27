@@ -6,7 +6,7 @@
 /*   By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/26 15:57:03 by mlanca-c          #+#    #+#             */
-/*   Updated: 2021/05/26 19:59:36 by mlanca-c         ###   ########.fr       */
+/*   Updated: 2021/05/27 16:34:32 by mlanca-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,49 +54,139 @@ void	get_chunks(t_stack **stack_a, t_stack **chunks)
 
 /*
 */
+void	rotate_till_first(t_stack **stack_a, int first)
+{
+	while (first--)
+	{
+		rotate_stack(stack_a, 0, "ra\n");
+	}
+}
+
+/*
+*/
+void	rotate_till_second(t_stack **stack_a, int first)
+{
+	while (first--)
+	{
+		reverse_rotate_stack(stack_a, 0, "rra\n");
+	}
+}
+
+/*
+ * This function splits half of the numbers stored in 'stack_a' to 'stack_b'.
+ * This function searches for the closest number - whose values are between the
+ * limits of 'chunks' - of the top of stack_a - either hold_first or
+ * hold_second.
+*/
 void	split_a_to_b(t_stack **stack_a, t_stack **stack_b, t_stack **chunks)
 {
 	int	first;
 	int	second;
-	int	size;
 
-	first = get_hold_first(stack_a, chunks);
-	second = get_hold_second(stack_a, chunks);
-	size = ft_stack_size(*stack_a);
-	if (first < ft_stack_size(stack_a) - second)
-		rotate_stack(stack_a, 0, "ra\n");
+	first = get_hold_first(*stack_a, chunks);
+	second = get_hold_second(*stack_a, chunks);
+	if (first <= second)
+		rotate_till_first(stack_a, first);
 	else
-		reverse_rotate_stack(stack_a, 0, "rra\n");	
+		rotate_till_second(stack_a, second);	
+	push_stack(stack_a, stack_b, "pb\n");
 }
 
-int	get_hold_second(t_stack *stack_a, **t_stack chunks)
+
+/*
+** This function iterates stack_a, from the bottom and finds the first number
+** with values between the first and the second number in 'chunks'.
+**
+** @param	t_stack	*stack_a	- This stack will be iterated in order o find
+** 								the position of the first number between
+** 								'chunks'.
+** @param	t_stack	*chunks		- this stack will serve as the limits to find
+** 								the number in 'stack_a'.
+**
+** This function returns the extimated number or "rra" instructions necessary
+** for the number found in stack_a to be on top.
+*/
+int	get_hold_second(t_stack *stack_a, t_stack *chunks)
 {
 	int	second;
+	int	max;
+	int	min;
 
 	stack_a = ft_stack_last(stack_a);
+	min = chunks->data;
+	max = chunks->next->data;
+	second = 1;
 	while (stack_a)
 	{
-		if ((*chunks)->data >= stack_a->data &&
-				(*chunk)->next->data < stack_a->data)
-			return (first);
+		if (stack_a->data > min && stack_a->data < max)
+			return (second);
 		second++;
 		stack_a = stack_a->previous;
 	}
+	return (second);
 }
+
 /*
+** This function iterates stack_a, from the top and finds the first number with
+** values between the first and the second number in 'chunks'.
+**
+** @param	t_stack	*stack_a	- This stack will be iterated in order o find
+** 								the position of the first number between
+** 								'chunks'.
+** @param	t_stack	*chunks		- this stack will serve as the limits to find
+** 								the number in 'stack_a'.
+**
+** This function returns the extimated number or "ra" instructions necessary for
+** the number found in stack_a to be on top.
 */
-int	get_hold_first(t_stack *stack_a, **t_stack chunks)
+int	get_hold_first(t_stack *stack_a, t_stack *chunks)
 {
 	int	first;
+	int	max;
+	int	min;
 
+	min = chunks->data;
+	max = chunks->next->data;
 	first = 0;
 	while (stack_a)
 	{
-		if ((*chunks)->data >= stack_a->data &&
-				(*chunk)->next->data < stack_a->data)
+		if (stack_a->data > min && stack_a->data < max)
 			return (first);
 		first++;
 		stack_a = stack_a->next;
 	}
 	return (first);
+}
+
+/*
+** This function iterates stack_a, from the bottom and finds the first number
+** with values between the first and the second number in 'chunks'.
+**
+** @param	t_stack	*stack_a	- This stack will be iterated in order o find
+** 								the position of the last number between
+** 								'chunks'.
+** @param	t_stack	*chunks		- this stack will serve as the limits to find
+** 								the number in 'stack_a'.
+**
+** This function returns the extimated number or "rra" instructions necessary
+** for the number found in stack_a to be on top.
+*/
+int	get_hold_second(t_stack *stack_a, t_stack *chunks)
+{
+	int	second;
+	int	max;
+	int	min;
+
+	stack_a = ft_stack_last(stack_a);
+	min = chunks->data;
+	max = chunks->next->data;
+	second = 1;
+	while (stack_a)
+	{
+		if (stack_a->data > min && stack_a->data < max)
+			return (second);
+		second++;
+		stack_a = stack_a->previous;
+	}
+	return (second);
 }
