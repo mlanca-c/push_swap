@@ -6,7 +6,7 @@
 /*   By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 11:17:40 by mlanca-c          #+#    #+#             */
-/*   Updated: 2021/05/27 16:34:30 by mlanca-c         ###   ########.fr       */
+/*   Updated: 2021/05/28 13:43:16 by mlanca-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,15 @@ void	rotate_stack(t_stack **mandatory, t_stack **optional, char *message)
 		ft_stack_add_back(optional, ft_stack_new(data));
 	}
 	ft_putstr_fd(message, 1);
+}
+
+void	get_chunks(t_stack **stack_a, t_stack **chunks)
+{
+	int		median;
+
+	median = ft_stack_median(*stack_a);
+	ft_stack_add_back(chunks, ft_stack_new(median));
+	ft_stack_sort(chunks);
 }
 
 void	stack_print(t_stack *stack)
@@ -153,22 +162,6 @@ int	get_hold_second(t_stack *stack_a, t_stack **chunks)
 	return (second);
 }
 
-void	rotate_till_first(t_stack **stack_a, int first)
-{
-	while (first--)
-	{
-		rotate_stack(stack_a, 0, "ra\n");
-	}
-}
-
-void	rotate_till_second(t_stack **stack_a, int first)
-{
-	while (first--)
-	{
-		reverse_rotate_stack(stack_a, 0, "rra\n");
-	}
-}
-
 void	split_a_to_b(t_stack **stack_a, t_stack **stack_b, t_stack **chunks)
 {
 	int	first;
@@ -177,10 +170,82 @@ void	split_a_to_b(t_stack **stack_a, t_stack **stack_b, t_stack **chunks)
 	first = get_hold_first(*stack_a, chunks);
 	second = get_hold_second(*stack_a, chunks);
 	if (first <= second)
-		rotate_till_first(stack_a, first);
+	{
+		while (first--)
+			rotate_stack(stack_a, 0, "ra\n");
+	}
 	else
-		rotate_till_second(stack_a, second);	
+	{
+		while (second--)
+			reverse_rotate_stack(stack_a, 0, "rra\n");
+	}
 	push_stack(stack_a, stack_b, "pb\n");
+}
+
+void	split_b_back_to_a(t_stack **stack_b, t_stack **stack_a, t_stack *chunks)
+{
+	int	first;
+	int	second;
+
+	first = get_hold_first(*stack_b, &chunks);
+	second = get_hold_second(*stack_b, &chunks);
+	if (first <= second)
+	{
+		while (first--)
+		{
+			if ((*stack_b)->data == ft_stack_min_value(*stack_b))
+			{
+				push_stack(stack_b, stack_a, "pa\n");
+				if (first)
+					rotate_stack(stack_a, stack_b, "rr\n");
+				else
+					rotate_stack(stack_a, 0, "ra\n");
+			}
+			else
+				rotate_stack(stack_b, 0, "rb\n");
+		}
+	}
+	else
+	{
+		while (second--)
+		{
+			if ((*stack_b)->data == ft_stack_min_value(*stack_b))
+			{
+				push_stack(stack_b, stack_a, "pa\n");
+				rotate_stack(stack_a, 0, "ra\n");
+			}
+			else
+				reverse_rotate_stack(stack_b, 0, "rrb\n");
+		}
+	}
+	push_stack(stack_b, stack_a, "pa\n");
+}
+
+void	merge_half_to_a(t_stack **stack_a, t_stack **stack_b, t_stack **chunks)
+{
+	ft_stack_remove(chunks);
+	get_chunks(stack_b, chunks);
+	printf("chunks: ");
+	stack_print(*chunks);
+	while (ft_stack_has_above(*stack_b, (*chunks)->data))
+		split_b_back_to_a(stack_b, stack_a, *chunks);
+	printf("stack_a: ");
+	stack_print(*stack_a);
+	printf("stack_b: ");
+	stack_print(*stack_b);
+}
+
+void	merge_sort_to_a(t_stack **stack_a, t_stack **stack_b, t_stack **chunks)
+{
+	t_stack	*duplicated;
+
+	duplicated = ft_stack_duplicate(stack_b);
+	ft_stack_sort(duplicated);
+	while (ft_stack_size(stack_b))
+	{
+		closest_path(duplicated->value)
+		duplicated = duplicated->next;
+	}
 }
 
 int	main(int argc, char **argv)
@@ -216,4 +281,13 @@ int	main(int argc, char **argv)
 	stack_print(stack_a);
 	printf("stack_b: ");
 	stack_print(stack_b);
+
+	// Testing merge_half_to_a
+	printf("Testing merge half to a \n");
+	if (chunks->next->data - chunks->data > 20)
+		merge_half_to_a(&stack_a, &stack_b, &chunks);
+	// Testing merge_sort_to_a
+	printf("Testing merge sort to a \n");
+	if (chunks->next->data - chunks->data <= 20)
+		merge_sort_to_a(stack_a, stack_b, chunks);
 }
