@@ -6,7 +6,7 @@
 /*   By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/23 19:17:46 by mlanca-c          #+#    #+#             */
-/*   Updated: 2021/05/26 17:14:22 by mlanca-c         ###   ########.fr       */
+/*   Updated: 2021/05/28 11:03:27 by mlanca-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,15 +146,39 @@ void	sorting_medium_algorithm(t_stack **stack_a, t_stack **stack_b)
  * and the merge phase.
  *
  * Split Phase:
- * 	This phase is focused in oushing to stack_b, the number in between a certain
+ * 	This phase is focused in pushing to stack_b, the number in between a certain
  * 	chunk. The instructions used for this part are "ra", "rra", and "pb". This
  * 	phase ends when all the numbers of the chunk are in stack_b.
+ * 	example:
+ * 		100 random and unique numbers from 1 to 100.
+ * 		1st chunk: numbers from 1 to 50 in stack_b.
+ * 		2nd chunk: numbers from 50 to 100 in stack_a.
  *
- * first step
+ * Then the program will choose between:
+ * 	- Merge Back Phase:
+ * 		This phase occurs if stack_b's size is too big for the Merge Sort Phase.
+ * 		So what will happen here is that half the values of stack_b will go back
+ * 		to stack_a - specifically values that are bigger than the median value
+ * 		of stack_b. This will happen while at the same time trying to sort
+ * 		what's possible back into stack_a.
+ *
+ * 	- Merge Sort Phase:
+ * 		This phase occurs if stack_b's ready for sorting back into stack_a - has
+ * 		a few amount of numbers which makes it possible for them to go back
+ * 		sorted into stack_a.
 */
 void	sorting_big_algorithm(t_stack **stack_a, t_stack **stack_b,
 		t_stack **chunks)
 {
 	get_chunks(stack_a, chunks);
-	split_a_to_b(stack_a, stack_b, chunks);
+	if (!ft_stack_size(*stack_b))
+	{
+		while (ft_stack_size(*stack_b) < (*chunks)->next->data)
+			split_a_to_b(stack_a, stack_b, chunks);
+	}
+	if ((*chunks)->next->data - (*chunks)->data >= 20)
+		merge_half_to_a(stack_a, stack_b, chunks);
+	else
+		merge_sort_to_a(stack_a, stack_b, chunks);
+	sorting_big_algorithm(stack_a, stack_b, chunks);
 }
