@@ -6,7 +6,7 @@
 /*   By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/26 15:57:03 by mlanca-c          #+#    #+#             */
-/*   Updated: 2021/05/27 16:34:32 by mlanca-c         ###   ########.fr       */
+/*   Updated: 2021/05/28 10:55:26 by mlanca-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,77 +53,44 @@ void	get_chunks(t_stack **stack_a, t_stack **chunks)
 }
 
 /*
-*/
-void	rotate_till_first(t_stack **stack_a, int first)
-{
-	while (first--)
-	{
-		rotate_stack(stack_a, 0, "ra\n");
-	}
-}
-
-/*
-*/
-void	rotate_till_second(t_stack **stack_a, int first)
-{
-	while (first--)
-	{
-		reverse_rotate_stack(stack_a, 0, "rra\n");
-	}
-}
-
-/*
- * This function splits half of the numbers stored in 'stack_a' to 'stack_b'.
- * This function searches for the closest number - whose values are between the
- * limits of 'chunks' - of the top of stack_a - either hold_first or
- * hold_second.
+** This function splits half of the numbers stored in 'stack_a' to 'stack_b'.
+** This function searches for the closest number - whose values are between the
+** limits of 'chunks' - of the top of stack_a - either hold_first or
+** hold_second, and then chooses which takes less moves to put at the top - if
+** hold_first with "ra" or hold_second wih "rra".
+** Then the number on top is pushed to stack_b.
+**
+** @param	t_stack	**stack_a	- stack_a will contain numbers belonging to
+** 								stack_b, and others that belong to stack_a.
+** @param	t_stack	**stack_b	- stack_b will have numbers that are equal or
+** 								less than the median.
+** @param	t_stack	**chunks	- stack containing the limits desired by both
+** 								stacks
+** 									example: 
+** 									if the program is sorting 100 numbers, then
+** 									chunks will be {min, median, max} which
+** 									means stack_a will have the values between
+** 									median and max; and stack_b between min and
+** 									median inclusive.
 */
 void	split_a_to_b(t_stack **stack_a, t_stack **stack_b, t_stack **chunks)
 {
 	int	first;
 	int	second;
 
-	first = get_hold_first(*stack_a, chunks);
-	second = get_hold_second(*stack_a, chunks);
+	first = get_hold_first(*stack_a, *chunks);
+	second = get_hold_second(*stack_a, *chunks);
 	if (first <= second)
-		rotate_till_first(stack_a, first);
-	else
-		rotate_till_second(stack_a, second);	
-	push_stack(stack_a, stack_b, "pb\n");
-}
-
-
-/*
-** This function iterates stack_a, from the bottom and finds the first number
-** with values between the first and the second number in 'chunks'.
-**
-** @param	t_stack	*stack_a	- This stack will be iterated in order o find
-** 								the position of the first number between
-** 								'chunks'.
-** @param	t_stack	*chunks		- this stack will serve as the limits to find
-** 								the number in 'stack_a'.
-**
-** This function returns the extimated number or "rra" instructions necessary
-** for the number found in stack_a to be on top.
-*/
-int	get_hold_second(t_stack *stack_a, t_stack *chunks)
-{
-	int	second;
-	int	max;
-	int	min;
-
-	stack_a = ft_stack_last(stack_a);
-	min = chunks->data;
-	max = chunks->next->data;
-	second = 1;
-	while (stack_a)
 	{
-		if (stack_a->data > min && stack_a->data < max)
-			return (second);
-		second++;
-		stack_a = stack_a->previous;
+		while (first--)
+			rotate_stack(stack_a, 0, "ra\n");
 	}
-	return (second);
+	else
+	{
+		while (second--)
+			reverse_rotate_stack(stack_a, 0, "rra\n");
+	}
+	push_stack(stack_a, stack_b, "pb\n");
 }
 
 /*
@@ -183,7 +150,7 @@ int	get_hold_second(t_stack *stack_a, t_stack *chunks)
 	second = 1;
 	while (stack_a)
 	{
-		if (stack_a->data > min && stack_a->data < max)
+		if (stack_a->data >= min && stack_a->data <= max)
 			return (second);
 		second++;
 		stack_a = stack_a->previous;
