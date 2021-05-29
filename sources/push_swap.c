@@ -6,7 +6,7 @@
 /*   By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/23 19:17:46 by mlanca-c          #+#    #+#             */
-/*   Updated: 2021/05/28 13:43:18 by mlanca-c         ###   ########.fr       */
+/*   Updated: 2021/05/29 18:05:38 by mlanca-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,13 +172,13 @@ void	sorting_big_algorithm(t_stack **stack_a, t_stack **stack_b,
 {
 	get_chunks(stack_a, chunks);
 	if (!ft_stack_size(*stack_b))
-	{
 		while (ft_stack_size(*stack_b) < (*chunks)->next->data)
 			split_a_to_b(stack_a, stack_b, chunks);
-	}
+	/*
 	if ((*chunks)->next->data - (*chunks)->data >= 20)
 		merge_half_to_a(stack_a, stack_b, chunks);
 	else
 		merge_sort_to_a(stack_a, stack_b, chunks);
 	sorting_big_algorithm(stack_a, stack_b, chunks);
+	*/
 }

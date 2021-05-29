@@ -6,7 +6,7 @@
 /*   By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 11:17:40 by mlanca-c          #+#    #+#             */
-/*   Updated: 2021/05/28 13:43:16 by mlanca-c         ###   ########.fr       */
+/*   Updated: 2021/05/29 18:05:36 by mlanca-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,16 +235,63 @@ void	merge_half_to_a(t_stack **stack_a, t_stack **stack_b, t_stack **chunks)
 	stack_print(*stack_b);
 }
 
-void	merge_sort_to_a(t_stack **stack_a, t_stack **stack_b, t_stack **chunks)
+int	ra_closest(t_stack *stack_b, int value)
+{
+	int	first;
+	int	half;
+
+	first = 0;
+	half = ft_stack_size(stack_b) / 2;
+	while (stack_b)
+	{
+		if (stack_b->data == value)
+			break ;
+		first++;
+		stack_b = stack_b->next;
+	}
+	if (first <= half)
+		return (1);
+	return (0);
+}
+
+
+void	merge_sort_to_a(t_stack *stack_a, t_stack *stack_b)
 {
 	t_stack	*duplicated;
 
 	duplicated = ft_stack_duplicate(stack_b);
-	ft_stack_sort(duplicated);
+	ft_stack_sort(&duplicated);
 	while (ft_stack_size(stack_b))
 	{
-		closest_path(duplicated->value)
-		duplicated = duplicated->next;
+		printf("duplicated: ");
+		stack_print(duplicated);
+		printf("stack a: ");
+		stack_print(stack_a);
+		printf("stack b: ");
+		stack_print(stack_b);
+		if (ra_closest(stack_b, duplicated->data))
+		{
+			while(stack_b->data != duplicated->data)
+			{
+				if (stack_b->data == ft_stack_last(stack_b)->data)
+					push_stack(&stack_b, &stack_a, "pa\n");
+				rotate_stack(&stack_b, 0, "rb\n");
+			}
+			push_stack(&stack_b, &stack_a, "pa\n");
+			rotate_stack(&stack_a, 0, "ra\n");
+		}
+		else
+		{
+			while(stack_b->data != duplicated->data)
+			{
+				if (stack_b->data == ft_stack_last(stack_b)->data)
+					push_stack(&stack_b, &stack_a, "pa\n");
+				reverse_rotate_stack(&stack_b, 0, "rb\n");
+			}
+			push_stack(&stack_b, &stack_a, "pa\n");
+			rotate_stack(&stack_a, 0, "ra\n");
+		}
+		return ;
 	}
 }
 
@@ -286,8 +333,9 @@ int	main(int argc, char **argv)
 	printf("Testing merge half to a \n");
 	if (chunks->next->data - chunks->data > 20)
 		merge_half_to_a(&stack_a, &stack_b, &chunks);
+
 	// Testing merge_sort_to_a
 	printf("Testing merge sort to a \n");
 	if (chunks->next->data - chunks->data <= 20)
-		merge_sort_to_a(stack_a, stack_b, chunks);
+		merge_sort_to_a(stack_a, stack_b);
 }
