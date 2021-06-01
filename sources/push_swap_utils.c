@@ -6,7 +6,7 @@
 /*   By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/26 15:57:03 by mlanca-c          #+#    #+#             */
-/*   Updated: 2021/05/29 18:05:37 by mlanca-c         ###   ########.fr       */
+/*   Updated: 2021/06/01 17:43:06 by mlanca-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,18 @@ void	push_min_to_b(t_stack **stack_a, t_stack **stack_b)
 void	get_chunks(t_stack **stack_a, t_stack **chunks)
 {
 	int		median;
+	t_stack	*duplicate;
 
-	median = ft_stack_median(*stack_a);
-	ft_stack_add_back(chunks, ft_stack_new(median));
-	ft_stack_sort(chunks);
+	duplicate = ft_stack_duplicate(*stack_a);
+	ft_stack_sort(&duplicate);
+	if ((*chunks)->data == ft_stack_max_value(*stack_a) && 
+			(*chunks)->next->data == ft_stack_max_value(*stack_a))
+	{
+		median = ft_stack_get(duplicate, ft_stack_size(*stack_a) / 2 - 1);
+		ft_stack_add_back(chunks, ft_stack_new(median));
+		ft_stack_sort(chunks);
+	}
+	max_idx =
 }
 
 /*
@@ -77,20 +85,21 @@ void	split_a_to_b(t_stack **stack_a, t_stack **stack_b, t_stack **chunks)
 {
 	int	first;
 	int	second;
+	int	size;
 
-	first = get_hold_first(*stack_a, *chunks);
-	second = get_hold_second(*stack_a, *chunks);
-	if (first <= second)
+	size = ft_stack_size(*stack_a) / 2;
+	while (ft_stack_size(*stack_b) < size)
 	{
-		while (first--)
-			rotate_stack(stack_a, 0, "ra\n");
+		first = get_hold_first(*stack_a, *chunks);
+		second = get_hold_second(*stack_a, *chunks);
+		if (first <= second)
+			while (first--)
+				rotate_stack(stack_a, 0, "ra\n");
+		else
+			while (second--)
+				reverse_rotate_stack(stack_a, 0, "rra\n");
+		push_stack(stack_a, stack_b, "pb\n");
 	}
-	else
-	{
-		while (second--)
-			reverse_rotate_stack(stack_a, 0, "rra\n");
-	}
-	push_stack(stack_a, stack_b, "pb\n");
 }
 
 /*

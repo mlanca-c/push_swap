@@ -6,7 +6,7 @@
 /*   By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/23 20:50:25 by mlanca-c          #+#    #+#             */
-/*   Updated: 2021/05/28 10:37:53 by mlanca-c         ###   ########.fr       */
+/*   Updated: 2021/06/01 17:02:47 by mlanca-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,10 @@ void	split_a_to_b(t_stack **stack_a, t_stack **stack_b, t_stack **chunks);
 /*
 ** push_swap_utils1.c Functions
 */
+void	merge_half_to_a(t_stack **stack_a, t_stack **stack_b, t_stack **chunks);
+void	split_b_ra(t_stack **stack_b, t_stack **stack_a, int first);
+void	split_b_rra(t_stack **stack_b, t_stack **stack_a, int second);
+void	merge_sort_to_a(t_stack **stack_a, t_stack **stack_b);
+int		ra_closest(t_stack *stack_b, int value);
 
 #endif

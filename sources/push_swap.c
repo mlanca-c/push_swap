@@ -6,7 +6,7 @@
 /*   By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/23 19:17:46 by mlanca-c          #+#    #+#             */
-/*   Updated: 2021/05/29 18:05:38 by mlanca-c         ###   ########.fr       */
+/*   Updated: 2021/06/01 17:21:33 by mlanca-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,45 +140,45 @@ void	sorting_medium_algorithm(t_stack **stack_a, t_stack **stack_b)
 }
 
 /*
- * This function sorts stacks of size bigger than 5. The logic behind this
- * algorithm is a bit more complicated, but I'll try to explain it anyway:
- * I decided to separate the algorithm in two different phases: the split phase,
- * and the merge phase.
- *
- * Split Phase:
- * 	This phase is focused in pushing to stack_b, the number in between a certain
- * 	chunk. The instructions used for this part are "ra", "rra", and "pb". This
- * 	phase ends when all the numbers of the chunk are in stack_b.
- * 	example:
- * 		100 random and unique numbers from 1 to 100.
- * 		1st chunk: numbers from 1 to 50 in stack_b.
- * 		2nd chunk: numbers from 50 to 100 in stack_a.
- *
- * Then the program will choose between:
- * 	- Merge Back Phase:
- * 		This phase occurs if stack_b's size is too big for the Merge Sort Phase.
- * 		So what will happen here is that half the values of stack_b will go back
- * 		to stack_a - specifically values that are bigger than the median value
- * 		of stack_b. This will happen while at the same time trying to sort
- * 		what's possible back into stack_a.
- *
- * 	- Merge Sort Phase:
- * 		This phase occurs if stack_b's ready for sorting back into stack_a - has
- * 		a few amount of numbers which makes it possible for them to go back
- * 		sorted into stack_a.
+** This function sorts stacks of size bigger than 5. The logic behind this
+** algorithm is a bit more complicated, but I'll try to explain it anyway:
+** I decided to separate the algorithm in two different phases: the split phase,
+** and the merge phase.
+**
+** Split Phase:
+** 	This phase is focused in pushing to stack_b, the number in between a certain
+** 	chunk. The instructions used for this part are "ra", "rra", and "pb". This
+** 	phase ends when all the numbers of the chunk are in stack_b.
+** 	example:
+** 		100 random and unique numbers from 1 to 100.
+** 		1st chunk: numbers from 1 to 50 in stack_b.
+** 		2nd chunk: numbers from 50 to 100 in stack_a.
+**
+** Then the program will choose between:
+** 	- Merge Back Phase:
+** 		This phase occurs if stack_b's size is too big for the Merge Sort Phase.
+** 		So what will happen here is that half the values of stack_b will go back
+** 		to stack_a - specifically values that are bigger than the median value
+** 		of stack_b. This will happen while at the same time trying to sort
+** 		what's possible back into stack_a.
+**
+** 	- Merge Sort Phase:
+** 		This phase occurs if stack_b's ready for sorting back into stack_a - has
+** 		a few amount of numbers which makes it possible for them to go back
+** 		sorted into stack_a.
 */
 void	sorting_big_algorithm(t_stack **stack_a, t_stack **stack_b,
 		t_stack **chunks)
 {
+	if (ft_stack_size(*chunks) == 1)
+		return ;
 	get_chunks(stack_a, chunks);
 	if (!ft_stack_size(*stack_b))
-		while (ft_stack_size(*stack_b) < (*chunks)->next->data)
-			split_a_to_b(stack_a, stack_b, chunks);
-	/*
-	if ((*chunks)->next->data - (*chunks)->data >= 20)
+		split_a_to_b(stack_a, stack_b, chunks);
+	if (ft_stack_size(*stack_b) >= 20)
 		merge_half_to_a(stack_a, stack_b, chunks);
-	else
-		merge_sort_to_a(stack_a, stack_b, chunks);
+	else if (ft_stack_size(*stack_b) < 20)
+		merge_sort_to_a(stack_a, stack_b);
+	ft_stack_remove(chunks);
 	sorting_big_algorithm(stack_a, stack_b, chunks);
-	*/
 }
