@@ -6,7 +6,7 @@
 /*   By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/28 10:36:15 by mlanca-c          #+#    #+#             */
-/*   Updated: 2021/06/01 17:32:49 by mlanca-c         ###   ########.fr       */
+/*   Updated: 2021/06/02 19:17:05 by mlanca-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,47 @@
 
 /*
 */
-void	merge_half_to_a(t_stack **stack_a, t_stack **stack_b, t_stack **chunks)
+void	get_holds(int *first, int *second, t_stack *stack_a, t_stack *limits)
+{
+	int		min;
+	int		max;
+	t_stack	*stack_b;
+
+	min = limits->data;
+	max = limits->next->data;
+	*first = 0;
+	while (stack_a->next)
+	{
+		if (stack_a->data >= min && stack_a->data <= max)
+			break ;
+		(*first)++;
+		stack_a = stack_a->next;
+	}
+	stack_b = ft_stack_last(stack_a);
+	*second = 1;
+	while (stack_b->previous)
+	{
+		if (stack_b->data >= min && stack_b->data <= max)
+			break ;
+		(*second)++;
+		stack_b = stack_b->previous;
+	}
+}
+
+/*
+*/
+void	merge_half_to_a(t_stack **stack_a, t_stack **stack_b, t_stack *limits)
 {
 	int	first;
 	int	second;
+	int	size;
 
-	ft_stack_remove(chunks);
-	get_chunks(stack_b, chunks);
-	while (ft_stack_has_bigger(*stack_b, (*chunks)->data))
+	get_new_limit(&limits, *stack_b);
+	size = count_in_between(*stack_b, limits->next) - 1;
+	while (ft_stack_size(*stack_b) > size)
 	{
-		first = get_hold_first(*stack_b, *chunks);
-		second = get_hold_second(*stack_b, *chunks);
+		first = get_hold_first(*stack_b, limits->next);
+		second = get_hold_second(*stack_b, limits->next);
 		if (first <= second)
 			while (first--)
 				rotate_stack(stack_b, 0, "rb\n");
@@ -39,68 +69,50 @@ void	merge_half_to_a(t_stack **stack_a, t_stack **stack_b, t_stack **chunks)
 */
 void	merge_sort_to_a(t_stack **stack_a, t_stack **stack_b)
 {
-	t_stack	*duplicated;
-	t_stack	*temporary;
-	t_stack	*last_node;
+	t_stack	*first;
+	t_stack	*second;
 
-	duplicated = ft_stack_duplicate(*stack_b);
-	ft_stack_sort(&duplicated);
-	temporary = duplicated;
-	last_node = ft_stack_last(duplicated);
+	first = ft_stack_duplicate(*stack_b);
+	ft_stack_sort(&first);
+	second = ft_stack_last(first);
 	while (ft_stack_size(*stack_b))
 	{
-		if (ra_closest(*stack_b, duplicated->data))
+		if ((*stack_b)->data == first->data)
 		{
-			while((*stack_b)->data != duplicated->data)
-			{
-				if ((*stack_b)->data == last_node->data)
-				{
-					push_stack(stack_b, stack_a, "pa\n");
-					last_node = last_node->previous;
-				}
-				else
-					rotate_stack(stack_b, 0, "rb\n");
-			}
 			push_stack(stack_b, stack_a, "pa\n");
 			rotate_stack(stack_a, 0, "ra\n");
+			first = first->next;
+		}
+		else if ((*stack_b)->data == second->data)
+		{
+			push_stack(stack_b, stack_a, "pa\n");
+			second = second->previous;
 		}
 		else
-		{
-			while((*stack_b)->data != duplicated->data)
-			{
-				if ((*stack_b)->data == last_node->data)
-				{
-					push_stack(stack_b, stack_a, "pa\n");
-					last_node = last_node->previous;
-				}
-				else
-					reverse_rotate_stack(stack_b, 0, "rrb\n");
-			}
-			push_stack(stack_b, stack_a, "pa\n");
-			rotate_stack(stack_a, 0, "ra\n");
-		}
-		duplicated = duplicated->next;
+			rotate_stack(stack_b, 0, "rb\n");
 	}
-	ft_stack_clear(&temporary);
+
 }
 
 /*
 */
-int	ra_closest(t_stack *stack_b, int value)
+void	rotate_until_sorted(t_stack **stack_a, t_stack *limits)
 {
-	int	first;
-	int	half;
+	while (ft_stack_last(*stack_a)->data != limits->next->data)
+		reverse_rotate_stack(stack_a, 0, "rra\n");
+}
 
-	first = 0;
-	half = ft_stack_size(stack_b) / 2;
-	while (stack_b)
-	{
-		if (stack_b->data == value)
-			break ;
-		first++;
-		stack_b = stack_b->next;
-	}
-	if (first <= half)
-		return (1);
-	return (0);
+/*
+*/
+int	count_in_between(t_stack *stack_a, t_stack *limits)
+{
+	t_stack	*duplicate;
+	int		max_idx;
+	int		min_idx;
+
+	duplicate = ft_stack_duplicate(stack_a);
+	ft_stack_sort(&duplicate);
+	min_idx = ft_stack_find(duplicate, limits->data);
+	max_idx = ft_stack_find(duplicate, limits->next->data);
+	return (max_idx - min_idx + 1);
 }
