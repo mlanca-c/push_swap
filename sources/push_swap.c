@@ -6,7 +6,7 @@
 /*   By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/02 14:46:38 by mlanca-c          #+#    #+#             */
-/*   Updated: 2021/06/02 19:18:51 by mlanca-c         ###   ########.fr       */
+/*   Updated: 2021/06/02 19:37:17 by mlanca-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,5 +180,5 @@ void	sorting_big_algorithm(t_stack **stack_a, t_stack **stack_b,
 	merge_sort_to_a(stack_a, stack_b);
 	rotate_until_sorted(stack_a, *limits);
 	ft_stack_remove(limits);
-	//sorting_big_algorithm(stack_a, stack_b, limits);
+	sorting_big_algorithm(stack_a, stack_b, limits);
 }
