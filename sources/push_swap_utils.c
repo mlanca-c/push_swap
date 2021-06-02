@@ -6,7 +6,7 @@
 /*   By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/02 19:03:16 by mlanca-c          #+#    #+#             */
-/*   Updated: 2021/06/02 19:13:11 by mlanca-c         ###   ########.fr       */
+/*   Updated: 2021/06/02 19:37:18 by mlanca-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,21 +104,14 @@ void	get_new_limit(t_stack **limits, t_stack *stack_a)
 */
 void	split_a_to_b(t_stack **stack_a, t_stack **stack_b, t_stack *limits)
 {
-	int	first;
-	int	second;
 	int size;
 
 	size = count_in_between(*stack_a, limits);
 	while (ft_stack_size(*stack_b) < size)
 	{
-		get_holds(&first, &second, *stack_a, limits);
-		if (first <= second)
-			while (first--)
-				rotate_stack(stack_a, 0, "ra\n");
-		else
-			while (second--)
-				reverse_rotate_stack(stack_a, 0, "rra\n");
-		push_stack(stack_a, stack_b, "pb\n");
+		if ((*stack_a)->data >= limits->data && (*stack_a)->data <= limits->next->data)
+			push_stack(stack_a, stack_b, "pb\n");
+		rotate_stack(stack_a, 0, "ra\n");
 	}
 }
 
