@@ -6,7 +6,7 @@
 /*   By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/02 14:46:38 by mlanca-c          #+#    #+#             */
-/*   Updated: 2021/06/02 14:47:15 by mlanca-c         ###   ########.fr       */
+/*   Updated: 2021/06/02 19:02:11 by mlanca-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,4 +181,5 @@ void	sorting_big_algorithm(t_stack **stack_a, t_stack **stack_b,
 		merge_sort_to_a(stack_a, stack_b);
 	ft_stack_remove(chunks);
 	sorting_big_algorithm(stack_a, stack_b, chunks);
+}
 }
