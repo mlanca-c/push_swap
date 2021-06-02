@@ -6,7 +6,7 @@
 /*   By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/02 14:46:38 by mlanca-c          #+#    #+#             */
-/*   Updated: 2021/06/02 19:02:11 by mlanca-c         ###   ########.fr       */
+/*   Updated: 2021/06/02 19:18:51 by mlanca-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,20 +51,20 @@ int	main(int argc, char **argv)
 */
 void	get_sorting(t_stack **stack_a, t_stack **stack_b)
 {
-	t_stack	*chunks;
+	t_stack	*limits;
 	int		maximum;
 	int		minimum;
 
 	maximum = ft_stack_max_value(*stack_a);
 	minimum = ft_stack_min_value(*stack_a);
-	chunks = ft_stack_new(minimum);
-	ft_stack_add_back(&chunks, ft_stack_new(maximum));
+	limits = ft_stack_new(minimum);
+	ft_stack_add_back(&limits, ft_stack_new(maximum));
 	if (ft_stack_size(*stack_a) <= 3)
 		sorting_small_algorithm(stack_a);
 	else if (ft_stack_size(*stack_a) <= 5)
 		sorting_medium_algorithm(stack_a, stack_b);
 	else
-		sorting_big_algorithm(stack_a, stack_b, &chunks);
+		sorting_big_algorithm(stack_a, stack_b, &limits);
 }
 
 /*
@@ -170,16 +170,15 @@ void	sorting_medium_algorithm(t_stack **stack_a, t_stack **stack_b)
 void	sorting_big_algorithm(t_stack **stack_a, t_stack **stack_b,
 		t_stack **limits)
 {
-	if (ft_stack_size(*chunks) == 1)
+	if (ft_stack_size(*limits) == 1)
 		return ;
-	get_chunks(stack_a, chunks);
+	get_new_limit(limits, *stack_a);
 	if (!ft_stack_size(*stack_b))
-		split_a_to_b(stack_a, stack_b, chunks);
-	if (ft_stack_size(*stack_b) >= 20)
-		merge_half_to_a(stack_a, stack_b, chunks);
-	else if (ft_stack_size(*stack_b) < 20)
-		merge_sort_to_a(stack_a, stack_b);
-	ft_stack_remove(chunks);
-	sorting_big_algorithm(stack_a, stack_b, chunks);
-}
+		split_a_to_b(stack_a, stack_b, *limits);
+	if (count_in_between(*stack_b, *limits) >= 20)
+		merge_half_to_a(stack_a, stack_b, *limits);
+	merge_sort_to_a(stack_a, stack_b);
+	rotate_until_sorted(stack_a, *limits);
+	ft_stack_remove(limits);
+	//sorting_big_algorithm(stack_a, stack_b, limits);
 }
