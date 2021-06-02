@@ -5,12 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/26 15:57:03 by mlanca-c          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/06/02 13:23:04 by mlanca-c         ###   ########.fr       */
-=======
-/*   Updated: 2021/06/01 17:43:06 by mlanca-c         ###   ########.fr       */
->>>>>>> 7521c30c264dd650ee8dd547b90eeddaa20e1c6b
+/*   Created: 2021/06/02 19:03:16 by mlanca-c          #+#    #+#             */
+/*   Updated: 2021/06/02 19:13:11 by mlanca-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +62,7 @@ void	push_min_to_b(t_stack **stack_a, t_stack **stack_b)
 ** @line 77-78	new is added to limits and limits is sorted so that it contains
 ** 				all the partitions of stack_a in order.
 */
-void	get_new_limit(t_stack *stack_a, t_stack **limits)
+void	get_new_limit(t_stack **limits, t_stack *stack_a)
 {
 	t_stack	*duplicate;
 	int		min_idx;
@@ -77,7 +73,10 @@ void	get_new_limit(t_stack *stack_a, t_stack **limits)
 	ft_stack_sort(&duplicate);
 	min_idx = ft_stack_find(duplicate, (*limits)->data);
 	max_idx = ft_stack_find(duplicate, (*limits)->next->data);
-	new = ft_stack_get(duplicate, ((max_idx - min_idx) / 2 + min_idx));
+	if ((max_idx - min_idx) % 2)
+		new = ft_stack_get(duplicate, ((max_idx - min_idx) / 2 + min_idx));
+	else
+		new = ft_stack_get(duplicate, ((max_idx - min_idx) / 2 + min_idx - 1));
 	ft_stack_add_front(limits, ft_stack_new(new));
 	ft_stack_sort(limits);
 }
@@ -103,17 +102,16 @@ void	get_new_limit(t_stack *stack_a, t_stack **limits)
 ** 									median and max; and stack_b between min and
 ** 									median inclusive.
 */
-void	split_a_to_b(t_stack **stack_a, t_stack **stack_b, t_stack **chunks)
+void	split_a_to_b(t_stack **stack_a, t_stack **stack_b, t_stack *limits)
 {
 	int	first;
 	int	second;
-	int	size;
+	int size;
 
-	size = ft_stack_size(*stack_a) / 2;
+	size = count_in_between(*stack_a, limits);
 	while (ft_stack_size(*stack_b) < size)
 	{
-		first = get_hold_first(*stack_a, *chunks);
-		second = get_hold_second(*stack_a, *chunks);
+		get_holds(&first, &second, *stack_a, limits);
 		if (first <= second)
 			while (first--)
 				rotate_stack(stack_a, 0, "ra\n");
@@ -137,14 +135,14 @@ void	split_a_to_b(t_stack **stack_a, t_stack **stack_b, t_stack **chunks)
 ** This function returns the extimated number or "ra" instructions necessary for
 ** the number found in stack_a to be on top.
 */
-int	get_hold_first(t_stack *stack_a, t_stack *chunks)
+int	get_hold_first(t_stack *stack_a, t_stack *limits)
 {
 	int	first;
 	int	max;
 	int	min;
 
-	min = chunks->data;
-	max = chunks->next->data;
+	min = limits->data;
+	max = limits->next->data;
 	first = 0;
 	while (stack_a)
 	{
@@ -169,19 +167,19 @@ int	get_hold_first(t_stack *stack_a, t_stack *chunks)
 ** This function returns the extimated number or "rra" instructions necessary
 ** for the number found in stack_a to be on top.
 */
-int	get_hold_second(t_stack *stack_a, t_stack *chunks)
+int	get_hold_second(t_stack *stack_a, t_stack *limits)
 {
 	int	second;
 	int	max;
 	int	min;
 
 	stack_a = ft_stack_last(stack_a);
-	min = chunks->data;
-	max = chunks->next->data;
+	min = limits->data;
+	max = limits->next->data;
 	second = 1;
 	while (stack_a)
 	{
-		if (stack_a->data >= min && stack_a->data <= max)
+		if (stack_a->data > min && stack_a->data < max)
 			return (second);
 		second++;
 		stack_a = stack_a->previous;
