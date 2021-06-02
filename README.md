@@ -54,5 +54,5 @@
 
  * [Project Explanation](https://medium.com/@jamierobertdawson/push-swap-the-least-amount-of-moves-with-two-stacks-d1e76a71789a)
  * [Double Linked List - implementation](https://www.geeksforgeeks.org/doubly-linked-list/)
- * [Merge-Sort Implementation and Explanation](https://www.geeksforgeeks.org/merge-sort-for-linked-list/)
+ * [Merge-Sort Implementation and Explanation](https://www.geeksforgeeks.org/merge-sort-for-doubly-linked-list/)
  * [Random Number Generator](https://numbergenerator.org/)

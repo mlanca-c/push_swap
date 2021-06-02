@@ -6,7 +6,7 @@
 /*   By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 11:17:40 by mlanca-c          #+#    #+#             */
-/*   Updated: 2021/05/28 13:43:16 by mlanca-c         ###   ########.fr       */
+/*   Updated: 2021/06/01 16:52:30 by mlanca-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,18 +123,18 @@ void	move_to_stack(char **argv, t_stack **stack_a)
 		printf("Error\n");
 }
 
-int	get_hold_first(t_stack *stack_a, t_stack **chunks)
+int	get_hold_first(t_stack *stack_a, t_stack *chunks)
 {
 	int	first;
 	int	max;
 	int	min;
 
-	min = (*chunks)->data;
-	max = (*chunks)->next->data;
+	min = chunks->data;
+	max = chunks->next->data;
 	first = 0;
 	while (stack_a)
 	{
-		if (stack_a->data >= min && stack_a->data <= max)
+		if (stack_a->data > min && stack_a->data < max)
 			return (first);
 		first++;
 		stack_a = stack_a->next;
@@ -142,15 +142,15 @@ int	get_hold_first(t_stack *stack_a, t_stack **chunks)
 	return (first);
 }
 
-int	get_hold_second(t_stack *stack_a, t_stack **chunks)
+int	get_hold_second(t_stack *stack_a, t_stack *chunks)
 {
 	int	second;
 	int	max;
 	int	min;
 
 	stack_a = ft_stack_last(stack_a);
-	min = (*chunks)->data;
-	max = (*chunks)->next->data;
+	min = chunks->data;
+	max = chunks->next->data;
 	second = 1;
 	while (stack_a)
 	{
@@ -166,86 +166,118 @@ void	split_a_to_b(t_stack **stack_a, t_stack **stack_b, t_stack **chunks)
 {
 	int	first;
 	int	second;
+	int	size;
 
-	first = get_hold_first(*stack_a, chunks);
-	second = get_hold_second(*stack_a, chunks);
-	if (first <= second)
+	size = ft_stack_size(*stack_a) / 2;
+	while (ft_stack_size(*stack_b) < size)
 	{
-		while (first--)
-			rotate_stack(stack_a, 0, "ra\n");
-	}
-	else
-	{
-		while (second--)
-			reverse_rotate_stack(stack_a, 0, "rra\n");
-	}
-	push_stack(stack_a, stack_b, "pb\n");
-}
-
-void	split_b_back_to_a(t_stack **stack_b, t_stack **stack_a, t_stack *chunks)
-{
-	int	first;
-	int	second;
-
-	first = get_hold_first(*stack_b, &chunks);
-	second = get_hold_second(*stack_b, &chunks);
-	if (first <= second)
-	{
-		while (first--)
-		{
-			if ((*stack_b)->data == ft_stack_min_value(*stack_b))
-			{
-				push_stack(stack_b, stack_a, "pa\n");
-				if (first)
-					rotate_stack(stack_a, stack_b, "rr\n");
-				else
-					rotate_stack(stack_a, 0, "ra\n");
-			}
-			else
-				rotate_stack(stack_b, 0, "rb\n");
-		}
-	}
-	else
-	{
-		while (second--)
-		{
-			if ((*stack_b)->data == ft_stack_min_value(*stack_b))
-			{
-				push_stack(stack_b, stack_a, "pa\n");
+		first = get_hold_first(*stack_a, *chunks);
+		second = get_hold_second(*stack_a, *chunks);
+		if (first <= second)
+			while (first--)
 				rotate_stack(stack_a, 0, "ra\n");
-			}
-			else
-				reverse_rotate_stack(stack_b, 0, "rrb\n");
-		}
+		else
+			while (second--)
+				reverse_rotate_stack(stack_a, 0, "rra\n");
+		push_stack(stack_a, stack_b, "pb\n");
 	}
-	push_stack(stack_b, stack_a, "pa\n");
 }
 
 void	merge_half_to_a(t_stack **stack_a, t_stack **stack_b, t_stack **chunks)
 {
+	int	first;
+	int	second;
+
 	ft_stack_remove(chunks);
 	get_chunks(stack_b, chunks);
-	printf("chunks: ");
-	stack_print(*chunks);
-	while (ft_stack_has_above(*stack_b, (*chunks)->data))
-		split_b_back_to_a(stack_b, stack_a, *chunks);
-	printf("stack_a: ");
-	stack_print(*stack_a);
-	printf("stack_b: ");
-	stack_print(*stack_b);
+	while (ft_stack_has_bigger(*stack_b, (*chunks)->data))
+	{
+		first = get_hold_first(*stack_b, *chunks);
+		second = get_hold_second(*stack_b, *chunks);
+		if (first <= second)
+			while (first-- > 0)
+				rotate_stack(stack_b, 0, "rb\n");
+		else
+			while (second-- > 0)
+				reverse_rotate_stack(stack_b, 0, "rrb\n");
+		push_stack(stack_b, stack_a, "ra\n");
+	}
 }
 
-void	merge_sort_to_a(t_stack **stack_a, t_stack **stack_b, t_stack **chunks)
+int	ra_closest(t_stack *stack_b, int value)
+{
+	int	first;
+	int	half;
+
+	first = 0;
+	half = ft_stack_size(stack_b) / 2;
+	while (stack_b)
+	{
+		if (stack_b->data == value)
+			break ;
+		first++;
+		stack_b = stack_b->next;
+	}
+	if (first <= half)
+		return (1);
+	return (0);
+}
+
+
+void	merge_sort_to_a(t_stack **stack_a, t_stack **stack_b)
 {
 	t_stack	*duplicated;
+	t_stack	*temporary;
+	t_stack	*last_node;
 
-	duplicated = ft_stack_duplicate(stack_b);
-	ft_stack_sort(duplicated);
-	while (ft_stack_size(stack_b))
+	duplicated = ft_stack_duplicate(*stack_b);
+	ft_stack_sort(&duplicated);
+	temporary = duplicated;
+	last_node = ft_stack_last(duplicated);
+	while (ft_stack_size(*stack_b))
 	{
-		closest_path(duplicated->value)
+		if (ra_closest(*stack_b, duplicated->data))
+		{
+			while((*stack_b)->data != duplicated->data)
+			{
+				if ((*stack_b)->data == last_node->data)
+				{
+					push_stack(stack_b, stack_a, "pa\n");
+					last_node = last_node->previous;
+				}
+				else
+					rotate_stack(stack_b, 0, "rb\n");
+			}
+			push_stack(stack_b, stack_a, "pa\n");
+			rotate_stack(stack_a, 0, "ra\n");
+		}
+		else
+		{
+			while((*stack_b)->data != duplicated->data)
+			{
+				if ((*stack_b)->data == last_node->data)
+				{
+					push_stack(stack_b, stack_a, "pa\n");
+					last_node = last_node->previous;
+				}
+				else
+					reverse_rotate_stack(stack_b, 0, "rrb\n");
+			}
+			push_stack(stack_b, stack_a, "pa\n");
+			rotate_stack(stack_a, 0, "ra\n");
+		}
 		duplicated = duplicated->next;
 	}
+	ft_stack_clear(&temporary);
+}
+
+void	rotate_until_sorted(t_stack **stack_a, t_stack **chunks)
+{
+	ft_stack_remove(chunks);
+	printf("chunks: ");
+	stack_print(*chunks);
+	printf("stack_a: ");
+	stack_print(*stack_a);
 }
 
 int	main(int argc, char **argv)
@@ -275,8 +307,12 @@ int	main(int argc, char **argv)
 	stack_print(chunks);
 
 	// Testing split_a_to_b
-	while (ft_stack_size(stack_b) < chunks->next->data)
+	if (!ft_stack_size(stack_b))
 		split_a_to_b(&stack_a, &stack_b, &chunks);
+
+	//PRINTING
+	printf("chunks: ");
+	stack_print(chunks);
 	printf("stack_a: ");
 	stack_print(stack_a);
 	printf("stack_b: ");
@@ -284,10 +320,37 @@ int	main(int argc, char **argv)
 
 	// Testing merge_half_to_a
 	printf("Testing merge half to a \n");
-	if (chunks->next->data - chunks->data > 20)
+	if (ft_stack_size(stack_b) > 20)
 		merge_half_to_a(&stack_a, &stack_b, &chunks);
+	
+	//PRINTING
+	printf("chunks: ");
+	stack_print(chunks);
+	printf("stack_a: ");
+	stack_print(stack_a);
+	printf("stack_b: ");
+	stack_print(stack_b);
+
+/*
 	// Testing merge_sort_to_a
 	printf("Testing merge sort to a \n");
 	if (chunks->next->data - chunks->data <= 20)
-		merge_sort_to_a(stack_a, stack_b, chunks);
+		merge_sort_to_a(&stack_a, &stack_b);
+	
+	//PRINTING
+	printf("chunks: ");
+	stack_print(chunks);
+	printf("stack_a: ");
+	stack_print(stack_a);
+	printf("stack_b: ");
+	stack_print(stack_b);
+
+	//Rotate until sorted
+	printf("\nTesting rotate until sorted\n");
+	rotate_until_sorted(&stack_a, &chunks);
+	//PRINTING
+
+
+	// REcursion
+	*/
 }
