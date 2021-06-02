@@ -6,7 +6,7 @@
 /*   By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/26 15:57:03 by mlanca-c          #+#    #+#             */
-/*   Updated: 2021/05/28 13:43:17 by mlanca-c         ###   ########.fr       */
+/*   Updated: 2021/06/02 13:23:04 by mlanca-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,42 @@ void	push_min_to_b(t_stack **stack_a, t_stack **stack_b)
 }
 
 /*
- * This function will get the fist chunk of stack a the one that needs splitting
- * to b
+** This function will grab the median of 'stack_a' between the first two limits
+** of the stack 'limits' and add it to 'limits'.
+**
+** @line 72-73	The get_new_limit() function starts by creating a duplicated
+** 				stack of 'stack_a' - 'duplicate'; and sorting that stack -
+** 				'duplicate' will be a sorted version 'stack_a'.
+**
+** @line 74-75	the function will then try to find the index in duplicate of the
+** 				first element of 'limits' - min_idx; the same happens to
+** 				'max_idx' - the index of the second element of 'limits' in
+** 				'duplicate'.
+**
+** @line 76		after that it is possible to find the index of the median
+** 				element of max_idx and min_idx. The calculations are: 
+** 					(max_idx - min_idx) / 2 + min_idx
+**
+** @line 76		the new will then be the element whose index in duplicate is of
+** 				the number in between max_idx and min_idx.
+**
+** @line 77-78	new is added to limits and limits is sorted so that it contains
+** 				all the partitions of stack_a in order.
 */
-void	get_chunks(t_stack **stack_a, t_stack **chunks)
+void	get_new_limit(t_stack *stack_a, t_stack **limits)
 {
-	int		median;
+	t_stack	*duplicate;
+	int		min_idx;
+	int		max_idx;
+	int		new;
 
-	median = ft_stack_median(*stack_a);
-	ft_stack_add_back(chunks, ft_stack_new(median));
-	ft_stack_sort(chunks);
+	duplicate = ft_stack_duplicate(stack_a);
+	ft_stack_sort(&duplicate);
+	min_idx = ft_stack_find(duplicate, (*limits)->data);
+	max_idx = ft_stack_find(duplicate, (*limits)->next->data);
+	new = ft_stack_get(duplicate, ((max_idx - min_idx) / 2 + min_idx));
+	ft_stack_add_front(limits, ft_stack_new(new));
+	ft_stack_sort(limits);
 }
 
 /*
