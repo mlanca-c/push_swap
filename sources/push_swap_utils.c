@@ -68,7 +68,6 @@ void	push_min_to_b(t_stack **stack_a, t_stack **stack_b)
 */
 void	get_new_limit(t_stack *stack_a, t_stack **limits)
 {
-<<<<<<< HEAD
 	t_stack	*duplicate;
 	int		min_idx;
 	int		max_idx;
@@ -81,21 +80,6 @@ void	get_new_limit(t_stack *stack_a, t_stack **limits)
 	new = ft_stack_get(duplicate, ((max_idx - min_idx) / 2 + min_idx));
 	ft_stack_add_front(limits, ft_stack_new(new));
 	ft_stack_sort(limits);
-=======
-	int		median;
-	t_stack	*duplicate;
-
-	duplicate = ft_stack_duplicate(*stack_a);
-	ft_stack_sort(&duplicate);
-	if ((*chunks)->data == ft_stack_max_value(*stack_a) && 
-			(*chunks)->next->data == ft_stack_max_value(*stack_a))
-	{
-		median = ft_stack_get(duplicate, ft_stack_size(*stack_a) / 2 - 1);
-		ft_stack_add_back(chunks, ft_stack_new(median));
-		ft_stack_sort(chunks);
-	}
-	max_idx =
->>>>>>> 7521c30c264dd650ee8dd547b90eeddaa20e1c6b
 }
 
 /*
