@@ -6,7 +6,7 @@
 /*   By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/23 19:17:46 by mlanca-c          #+#    #+#             */
-/*   Updated: 2021/05/28 13:43:18 by mlanca-c         ###   ########.fr       */
+/*   Updated: 2021/06/02 13:27:51 by mlanca-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,9 +141,12 @@ void	sorting_medium_algorithm(t_stack **stack_a, t_stack **stack_b)
 
 /*
  * This function sorts stacks of size bigger than 5. The logic behind this
- * algorithm is a bit more complicated, but I'll try to explain it anyway:
- * I decided to separate the algorithm in two different phases: the split phase,
- * and the merge phase.
+ * algorithm is a bit more complicated:
+ *
+ * It starts by asking if the stack limit's size is 1, and if it is the program
+ * ends.
+ * Then it focuses on finding the next limit of the stack. In this case, the
+ * limit between the two limits already inside the stack - get_new_limit().
  *
  * Split Phase:
  * 	This phase is focused in pushing to stack_b, the number in between a certain
@@ -168,17 +171,16 @@ void	sorting_medium_algorithm(t_stack **stack_a, t_stack **stack_b)
  * 		sorted into stack_a.
 */
 void	sorting_big_algorithm(t_stack **stack_a, t_stack **stack_b,
-		t_stack **chunks)
+		t_stack **limits)
 {
-	get_chunks(stack_a, chunks);
-	if (!ft_stack_size(*stack_b))
-	{
-		while (ft_stack_size(*stack_b) < (*chunks)->next->data)
-			split_a_to_b(stack_a, stack_b, chunks);
-	}
-	if ((*chunks)->next->data - (*chunks)->data >= 20)
-		merge_half_to_a(stack_a, stack_b, chunks);
+	if (ft_stack_size(*limits) < 2)
+		return ;
+	get_new_limit(*stack_a, limits);
+	while (ft_stack_size(*stack_b) < (*limits)->next->data)
+		split_a_to_b(stack_a, stack_b, limits);
+	if ((*limits)->next->data - (*limits)->data >= 20)
+		merge_half_to_a(stack_a, stack_b, limits);
 	else
-		merge_sort_to_a(stack_a, stack_b, chunks);
-	sorting_big_algorithm(stack_a, stack_b, chunks);
+		merge_sort_to_a(stack_a, stack_b, limits);
+	sorting_big_algorithm(stack_a, stack_b, limits);
 }
