@@ -6,7 +6,7 @@
 /*   By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/02 14:46:38 by mlanca-c          #+#    #+#             */
-/*   Updated: 2021/06/02 19:37:17 by mlanca-c         ###   ########.fr       */
+/*   Updated: 2021/06/08 18:20:28 by mlanca-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	get_sorting(t_stack **stack_a, t_stack **stack_b)
 	else if (ft_stack_size(*stack_a) <= 5)
 		sorting_medium_algorithm(stack_a, stack_b);
 	else
-		sorting_big_algorithm(stack_a, stack_b, &limits);
+		sorting_big_algorithm(stack_a, stack_b, &limits, 0);
 }
 
 /*
@@ -168,17 +168,30 @@ void	sorting_medium_algorithm(t_stack **stack_a, t_stack **stack_b)
 ** 		sorted into stack_a.
 */
 void	sorting_big_algorithm(t_stack **stack_a, t_stack **stack_b,
-		t_stack **limits)
+		t_stack **limits, int i)
 {
+	int	rra;
+
 	if (ft_stack_size(*limits) == 1)
+	{
+		ft_stack_clear(limits);
 		return ;
-	get_new_limit(limits, *stack_a);
+	}
+	if (ft_stack_size(*limits) == 2
+		&& count_in_between(*stack_a, *limits) >= 20)
+		get_new_limit(limits, *stack_a);
 	if (!ft_stack_size(*stack_b))
-		split_a_to_b(stack_a, stack_b, *limits);
-	if (count_in_between(*stack_b, *limits) >= 20)
+	{
+		rra = split_a_to_b(stack_a, stack_b, *limits);
+		while (rra-- && i)
+			reverse_rotate_stack(stack_a, 0, "rra\n");
+	}
+	if (ft_stack_size(*stack_b) >= 20)
 		merge_half_to_a(stack_a, stack_b, *limits);
-	merge_sort_to_a(stack_a, stack_b);
-	rotate_until_sorted(stack_a, *limits);
-	ft_stack_remove(limits);
-	sorting_big_algorithm(stack_a, stack_b, limits);
+	else
+	{
+		merge_sort_to_a(stack_a, stack_b, *limits);
+		ft_stack_remove(limits);
+	}
+	sorting_big_algorithm(stack_a, stack_b, limits, ++i);
 }
