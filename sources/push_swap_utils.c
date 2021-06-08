@@ -6,7 +6,7 @@
 /*   By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/02 19:03:16 by mlanca-c          #+#    #+#             */
-/*   Updated: 2021/06/02 19:37:18 by mlanca-c         ###   ########.fr       */
+/*   Updated: 2021/06/08 18:12:29 by mlanca-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	get_new_limit(t_stack **limits, t_stack *stack_a)
 	if ((max_idx - min_idx) % 2)
 		new = ft_stack_get(duplicate, ((max_idx - min_idx) / 2 + min_idx));
 	else
-		new = ft_stack_get(duplicate, ((max_idx - min_idx) / 2 + min_idx - 1));
+		new = ft_stack_get(duplicate, ((max_idx - min_idx) / 2 + min_idx));
 	ft_stack_add_front(limits, ft_stack_new(new));
 	ft_stack_sort(limits);
 }
@@ -102,17 +102,24 @@ void	get_new_limit(t_stack **limits, t_stack *stack_a)
 ** 									median and max; and stack_b between min and
 ** 									median inclusive.
 */
-void	split_a_to_b(t_stack **stack_a, t_stack **stack_b, t_stack *limits)
+int	split_a_to_b(t_stack **stack_a, t_stack **stack_b, t_stack *limits)
 {
 	int size;
+	int	i;
 
 	size = count_in_between(*stack_a, limits);
+	i = 0;
 	while (ft_stack_size(*stack_b) < size)
 	{
 		if ((*stack_a)->data >= limits->data && (*stack_a)->data <= limits->next->data)
 			push_stack(stack_a, stack_b, "pb\n");
-		rotate_stack(stack_a, 0, "ra\n");
+		else
+		{
+			rotate_stack(stack_a, 0, "ra\n");
+			i++;
+		}
 	}
+	return (i);
 }
 
 /*
