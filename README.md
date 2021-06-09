@@ -25,10 +25,6 @@
 
  The **push_swap** project is a very simple and highly effective algorithm project: data will need to be sorted.
 
-## Keywords
-
- > [Complexity](https://en.wikipedia.org/wiki/Analysis_of_algorithms), [algorithms](https://en.wikipedia.org/wiki/Algorithm), [stacks](https://en.wikipedia.org/wiki/Stack_(abstract_data_type))
-
 # Useful links
 
  * [Project Explanation](https://medium.com/@jamierobertdawson/push-swap-the-least-amount-of-moves-with-two-stacks-d1e76a71789a)
