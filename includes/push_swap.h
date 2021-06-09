@@ -6,7 +6,7 @@
 /*   By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/23 20:50:25 by mlanca-c          #+#    #+#             */
-/*   Updated: 2021/06/08 18:07:59 by mlanca-c         ###   ########.fr       */
+/*   Updated: 2021/06/09 18:36:47 by mlanca-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,10 @@
 
 # include "libft.h"
 # include "utils.h"
+
+# ifndef MAX_SIZE
+#  define MAX_SIZE 20
+# endif
 
 /*
 ** push_swap.c Functions
@@ -29,15 +33,15 @@ void	sorting_big_algorithm(t_stack **stack_a, t_stack **stack_b,
 ** push_swap_utils.c Functions
 */
 void	push_min_to_b(t_stack **stack_a, t_stack **stack_b);
-void	get_new_limit(t_stack **limits, t_stack *stack_a);
-int		split_a_to_b(t_stack **stack_a, t_stack **stack_b, t_stack *limits);
+void	get_new_limit_stack_a(t_stack **limits, t_stack *stack_a);
+void	get_new_limit_stack_b(t_stack **limits, t_stack *stack_a);
 int		get_hold_first(t_stack *stack_a, t_stack *limits);
 int		get_hold_second(t_stack *stack_a, t_stack *limits);
 
 /*
 ** push_swap_utils1.c Functions
 */
-void	get_holds(int *first, int *second, t_stack *stack_a, t_stack *limits);
+void	split_a_to_b(t_stack **stack_a, t_stack **stack_b, t_stack *limits);
 void	merge_half_to_a(t_stack **stack_a, t_stack **stack_b, t_stack *limits);
 void	merge_sort_to_a(t_stack **stack_a, t_stack **stack_b, t_stack *limits);
 void	rotate_until_sorted(t_stack **stack_a, t_stack *limits);
