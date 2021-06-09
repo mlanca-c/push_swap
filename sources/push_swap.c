@@ -6,7 +6,7 @@
 /*   By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/02 14:46:38 by mlanca-c          #+#    #+#             */
-/*   Updated: 2021/06/09 18:38:23 by mlanca-c         ###   ########.fr       */
+/*   Updated: 2021/06/09 19:50:50 by mlanca-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,7 +177,7 @@ void	sorting_big_algorithm(t_stack **stack_a, t_stack **stack_b,
 	}
 	if (ft_stack_size(*limits) == 2
 		&& count_in_between(*stack_a, *limits) >= MAX_SIZE)
-		get_new_limit_stack_a(limits, *stack_a);
+		get_new_limit(limits, *stack_a, 1);
 	if (!ft_stack_size(*stack_b))
 	{
 		split_a_to_b(stack_a, stack_b, *limits);
