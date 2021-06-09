@@ -6,7 +6,7 @@
 /*   By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/23 20:50:25 by mlanca-c          #+#    #+#             */
-/*   Updated: 2021/06/09 18:36:47 by mlanca-c         ###   ########.fr       */
+/*   Updated: 2021/06/09 18:48:03 by mlanca-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,7 @@ void	sorting_big_algorithm(t_stack **stack_a, t_stack **stack_b,
 ** push_swap_utils.c Functions
 */
 void	push_min_to_b(t_stack **stack_a, t_stack **stack_b);
-void	get_new_limit_stack_a(t_stack **limits, t_stack *stack_a);
-void	get_new_limit_stack_b(t_stack **limits, t_stack *stack_a);
+void	get_new_limit(t_stack **limits, t_stack *stack, int status);
 int		get_hold_first(t_stack *stack_a, t_stack *limits);
 int		get_hold_second(t_stack *stack_a, t_stack *limits);
 
