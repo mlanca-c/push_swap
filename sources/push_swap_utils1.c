@@ -6,7 +6,7 @@
 /*   By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/28 10:36:15 by mlanca-c          #+#    #+#             */
-/*   Updated: 2021/06/09 18:14:07 by mlanca-c         ###   ########.fr       */
+/*   Updated: 2021/06/09 19:57:08 by mlanca-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,24 +69,34 @@ void	split_a_to_b(t_stack **stack_a, t_stack **stack_b, t_stack *limits)
 }
 
 /*
- * This function takes a stack - 'stack_b' - and all its numbers above the
- * second element of 'limits' are pushed back to 'stack_a'
- * 		example:
- * 			50 random numbers between 1 and 50;
- * 			stack_a: ]25, 50] unsorted
- * 			stack_b: [1, 25] unsorted
- * 			limits: {1, 13, 25, 50}
- * 		all numbers bigger than 13 have to go back to stack_a.
+** This function takes a stack - 'stack_b' - and all its numbers above the
+** second element of 'limits' are pushed back to 'stack_a'
+** 		example:
+** 			50 random numbers between 1 and 50;
+** 			stack_a: ]25, 50] unsorted
+** 			stack_b: [1, 25] unsorted
+** 			limits: {1, 13, 25, 50}
+** 		all numbers bigger than 13 have to go back to stack_a.
+**
+** @param	t_stack	**stack_a	- stack where the numbers will go back to.
+** @param	t_stack	**stack_b	- stack where the numbers above the second
+** 								element of 'limits' will have to move out of.
+** @param	t_stack	*limits		- stack that contains the limits of the
+** 								partitions of the other stacks.
 */
 void	merge_half_to_a(t_stack **stack_a, t_stack **stack_b, t_stack *limits)
 {
-	get_new_limit_stack_b(&limits, *stack_b);
+	get_new_limit(&limits, *stack_b, 0);
 	while (ft_stack_has_bigger(*stack_b, limits->next->data))
 	{
 		if ((*stack_b)->data == ft_stack_min_value(*stack_b))
 		{
 			push_stack(stack_b, stack_a, "pa\n");
-			rotate_stack(stack_a, 0, "ra\n");
+			if ((*stack_b)->data != ft_stack_min_value(*stack_b)
+				&& (*stack_b)->data <= limits->next->data)
+				rotate_stack(stack_a, stack_b, "rr\n");
+			else
+				rotate_stack(stack_a, 0, "ra\n");
 		}
 		else if ((*stack_b)->data > limits->next->data)
 			push_stack(stack_b, stack_a, "pa\n");
@@ -96,34 +106,42 @@ void	merge_half_to_a(t_stack **stack_a, t_stack **stack_b, t_stack *limits)
 }
 
 /*
+ * This function merges the rest of stack_b' to 'stack_a' in a sorted matter.
+ *
+ * @param	t_stack	**stack_a	- stack where the numbers will go back to
+ * 								sorted.
+ * @param	t_stack	**stack_b	- stack where the numbers where. At the end
+ * 								this stack will be empty.
+ * @param	t_stack	*limits		- stack that contains the limits of the
+ * 								partitions of the other stacks.
 */
 void	merge_sort_to_a(t_stack **stack_a, t_stack **stack_b, t_stack *limits)
 {
-	t_stack	*first;
-	t_stack	*second;
+	t_stack	*duplicate;
 
-	first = ft_stack_duplicate(*stack_b);
-	ft_stack_sort(&first);
-	second = ft_stack_last(first);
+	duplicate = ft_stack_duplicate(*stack_b);
+	ft_stack_sort(&duplicate);
 	while (ft_stack_size(*stack_b))
 	{
-		if ((*stack_b)->data == first->data)
+		if ((*stack_b)->data == duplicate->data)
 		{
 			push_stack(stack_b, stack_a, "pa\n");
-			rotate_stack(stack_a, 0, "ra\n");
-			first = first->next;
+			duplicate = duplicate->next;
+			if (ft_stack_size(*stack_b) && (*stack_b)->data != ft_stack_max_value(*stack_b)
+				&& (*stack_b)->data != duplicate->data)
+				rotate_stack(stack_a, stack_b, "rr\n");
+			else
+				rotate_stack(stack_a, 0, "ra\n");
 		}
-		else if ((*stack_b)->data == second->data)
-		{
+		else if ((*stack_b)->data == ft_stack_max_value(*stack_b))
 			push_stack(stack_b, stack_a, "pa\n");
-			second = second->previous;
-		}
 		else
 			rotate_stack(stack_b, 0, "rb\n");
 	}
 	while (ft_stack_last(*stack_a)->data != limits->next->data)
 		rotate_stack(stack_a, 0, "ra\n");
 	limits->next->data = get_next_value(*stack_a, &limits);
+	ft_stack_clear(&duplicate);
 }
 
 /*
@@ -147,6 +165,7 @@ void	rotate_until_sorted(t_stack **stack_a, t_stack *limits)
 	else
 		while (ft_stack_last(*stack_a)->data != number)
 			reverse_rotate_stack(stack_a, 0, "rra\n");
+	ft_stack_clear(&duplicate);
 }
 
 /*
@@ -161,24 +180,6 @@ int	count_in_between(t_stack *stack_a, t_stack *limits)
 	ft_stack_sort(&duplicate);
 	min_idx = ft_stack_find(duplicate, limits->data);
 	max_idx = ft_stack_find(duplicate, limits->next->data);
+	ft_stack_clear(&duplicate);
 	return (max_idx - min_idx + 1);
-}
-
-/*
-*/
-int	get_next_value(t_stack *stack_a, t_stack **limits)
-{
-	t_stack	*duplicate;
-	int		position;
-	int		minimum;
-
-	duplicate = ft_stack_duplicate(stack_a);
-	ft_stack_sort(&duplicate);
-	position = ft_stack_find(duplicate, (*limits)->next->data);
-	minimum = ft_stack_get(duplicate, position);
-	if (minimum == ft_stack_last(duplicate)->data)
-		return (minimum);
-	else
-		minimum = ft_stack_get(duplicate, position + 1);
-	return (minimum);
 }
