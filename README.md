@@ -29,27 +29,6 @@
 
  > [Complexity](https://en.wikipedia.org/wiki/Analysis_of_algorithms), [algorithms](https://en.wikipedia.org/wiki/Algorithm), [stacks](https://en.wikipedia.org/wiki/Stack_(abstract_data_type))
 
-# Game Rules
-
- The game is composed of two stacks, named **a** and **b**
- * **a** contains a random number of either positive or negative numbers without duplicates.
- * **b** is empty.
- The goal is to sort the numbers in ascending order into the a stack.
-
- To do this there are the following operations:
-
- * ```sa``` : **swap a** - swap the first 2 elements at the top of stack a. Do nothing if there is only one or more elements.
- * ```sb``` : **swap b** - swap the first 2 elements at the top of stack b. Do nothing if there is only one or more elements.
- * ```ss``` : sa and sb at the same time.
- * ```pa``` : **push a** - takes the first element at the top of b and put it at the top of a. Do nothing if b is empty.
- * ```pb``` : **push b** - takes the first element at the top of a and put it at the top of b. Do nothing if b is empty.
- * ```ra``` : **rotate a** - shift up all elements of stackaby 1. The first element becomes the last one.
- * ```rb``` : **rotate b** - shift up all elements of stackbby 1. The first element becomes the last one.
- * ```rr``` : ra and rb at the same time.
- * ```rra``` : **reverse rotate a** - shift down all elements of stackaby 1. The last element becomes the first one.
- * ```rrb``` : **reverse rotate b** - shift down all elements of stackbby 1. The last element becomes the first one.
- * ```rrr``` : rra and rrb at the same time.
-
 # Useful links
 
  * [Project Explanation](https://medium.com/@jamierobertdawson/push-swap-the-least-amount-of-moves-with-two-stacks-d1e76a71789a)
