@@ -6,38 +6,65 @@
 /*   By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/28 10:36:15 by mlanca-c          #+#    #+#             */
-/*   Updated: 2021/06/08 18:20:53 by mlanca-c         ###   ########.fr       */
+/*   Updated: 2021/06/09 18:14:07 by mlanca-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
 /*
+** This function splits 'stack_a' to 'stack_b' the numbers whose limits are
+** between the first two elements of the stack 'limits'.
+** 
+** @param	t_stack	**stack_a	- Stack to be sorted at the end. At the end of
+** 								split_a_to_b() function this stacks will contain
+** 								only numbers that are bigger than the second
+** 								element of 'limits' or smaller than the first.
+**
+** @param	t_stack	**stack_b	- Helper stack. At the end of split_a_to_b()
+** 								function this stack will contain number between
+** 								the first element of 'limits', and the last
+** 								element of 'limits'.
+**
+** @param	t_stack	**limits	- stack containing the limits desired by both
+** 								stacks
+**
+** example: 
+** 	- before
+** 		limits: {14, 25, 50, 100}
+** 		stack_a: [1, 13] sorted
+** 				[14, 100] unsorted
+** 		stack_b: empty
+** 	- after
+** 		limits: {14, 25, 50, 100}
+** 		stack_a: [1, 13] sorted
+** 				]25 , 100] unsorted
+** 		stack_b: [14, 25] unsorted
+**
 */
-void	get_holds(int *first, int *second, t_stack *stack_a, t_stack *limits)
+void	split_a_to_b(t_stack **stack_a, t_stack **stack_b, t_stack *limits)
 {
-	int		min;
-	int		max;
-	t_stack	*stack_b;
+	int	size;
+	int	first;
+	int	second;
 
-	min = limits->data;
-	max = limits->next->data;
-	*first = 0;
-	while (stack_a->next)
+	size = count_in_between(*stack_a, limits);
+	while (ft_stack_size(*stack_b) < size)
 	{
-		if (stack_a->data >= min && stack_a->data <= max)
-			break ;
-		(*first)++;
-		stack_a = stack_a->next;
-	}
-	stack_b = ft_stack_last(stack_a);
-	*second = 1;
-	while (stack_b->previous)
-	{
-		if (stack_b->data >= min && stack_b->data <= max)
-			break ;
-		(*second)++;
-		stack_b = stack_b->previous;
+		first = get_hold_first(*stack_a, limits);
+		second = get_hold_second(*stack_a, limits);
+		if (first <= second)
+		{
+			while (first--)
+				rotate_stack(stack_a, 0, "ra\n");
+			push_stack(stack_a, stack_b, "pb\n");
+		}
+		else
+		{
+			while (second--)
+				reverse_rotate_stack(stack_a, 0, "rra\n");
+			push_stack(stack_a, stack_b, "pb\n");
+		}
 	}
 }
 
@@ -53,7 +80,7 @@ void	get_holds(int *first, int *second, t_stack *stack_a, t_stack *limits)
 */
 void	merge_half_to_a(t_stack **stack_a, t_stack **stack_b, t_stack *limits)
 {
-	get_new_limit(&limits, *stack_b);
+	get_new_limit_stack_b(&limits, *stack_b);
 	while (ft_stack_has_bigger(*stack_b, limits->next->data))
 	{
 		if ((*stack_b)->data == ft_stack_min_value(*stack_b))
@@ -103,8 +130,23 @@ void	merge_sort_to_a(t_stack **stack_a, t_stack **stack_b, t_stack *limits)
 */
 void	rotate_until_sorted(t_stack **stack_a, t_stack *limits)
 {
-	while (ft_stack_last(*stack_a)->data != limits->next->data)
-		reverse_rotate_stack(stack_a, 0, "rra\n");
+	t_stack	*duplicate;
+	int		number;
+	int		index;
+
+	duplicate = ft_stack_duplicate(*stack_a);
+	ft_stack_add_front(&duplicate, ft_stack_new(limits->data));
+	ft_stack_sort(&duplicate);
+	number = ft_stack_get(duplicate, ft_stack_find(duplicate, limits->data) - 1);
+	index = ft_stack_find(*stack_a, number);
+	if (number == -2147483648 || index == -2147483648)
+		return ;
+	if (index <= ft_stack_size(*stack_a) / 2)
+		while (ft_stack_last(*stack_a)->data != number)
+			rotate_stack(stack_a, 0, "ra\n");
+	else
+		while (ft_stack_last(*stack_a)->data != number)
+			reverse_rotate_stack(stack_a, 0, "rra\n");
 }
 
 /*
