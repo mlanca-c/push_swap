@@ -6,7 +6,7 @@
 /*   By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/02 19:03:16 by mlanca-c          #+#    #+#             */
-/*   Updated: 2021/06/08 18:12:29 by mlanca-c         ###   ########.fr       */
+/*   Updated: 2021/06/09 16:31:31 by mlanca-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	push_min_to_b(t_stack **stack_a, t_stack **stack_b)
 ** @line 77-78	new is added to limits and limits is sorted so that it contains
 ** 				all the partitions of stack_a in order.
 */
-void	get_new_limit(t_stack **limits, t_stack *stack_a)
+void	get_new_limit_stack_a(t_stack **limits, t_stack *stack_a)
 {
 	t_stack	*duplicate;
 	int		min_idx;
@@ -73,54 +73,23 @@ void	get_new_limit(t_stack **limits, t_stack *stack_a)
 	ft_stack_sort(&duplicate);
 	min_idx = ft_stack_find(duplicate, (*limits)->data);
 	max_idx = ft_stack_find(duplicate, (*limits)->next->data);
-	if ((max_idx - min_idx) % 2)
-		new = ft_stack_get(duplicate, ((max_idx - min_idx) / 2 + min_idx));
-	else
-		new = ft_stack_get(duplicate, ((max_idx - min_idx) / 2 + min_idx));
+	new = ft_stack_get(duplicate, ((max_idx - min_idx) / 2 + min_idx));
 	ft_stack_add_front(limits, ft_stack_new(new));
 	ft_stack_sort(limits);
 }
 
-/*
-** This function splits half of the numbers stored in 'stack_a' to 'stack_b'.
-** This function searches for the closest number - whose values are between the
-** limits of 'chunks' - of the top of stack_a - either hold_first or
-** hold_second, and then chooses which takes less moves to put at the top - if
-** hold_first with "ra" or hold_second wih "rra".
-** Then the number on top is pushed to stack_b.
-**
-** @param	t_stack	**stack_a	- stack_a will contain numbers belonging to
-** 								stack_b, and others that belong to stack_a.
-** @param	t_stack	**stack_b	- stack_b will have numbers that are equal or
-** 								less than the median.
-** @param	t_stack	**chunks	- stack containing the limits desired by both
-** 								stacks
-** 									example: 
-** 									if the program is sorting 100 numbers, then
-** 									chunks will be {min, median, max} which
-** 									means stack_a will have the values between
-** 									median and max; and stack_b between min and
-** 									median inclusive.
-*/
-int	split_a_to_b(t_stack **stack_a, t_stack **stack_b, t_stack *limits)
+void	get_new_limit_stack_b(t_stack **limits, t_stack *stack_a)
 {
-	int size;
-	int	i;
+	t_stack	*duplicate;
+	int		new;
 
-	size = count_in_between(*stack_a, limits);
-	i = 0;
-	while (ft_stack_size(*stack_b) < size)
-	{
-		if ((*stack_a)->data >= limits->data && (*stack_a)->data <= limits->next->data)
-			push_stack(stack_a, stack_b, "pb\n");
-		else
-		{
-			rotate_stack(stack_a, 0, "ra\n");
-			i++;
-		}
-	}
-	return (i);
+	duplicate = ft_stack_duplicate(stack_a);
+	ft_stack_sort(&duplicate);
+	new = ft_stack_get(duplicate, ft_stack_size(duplicate) / 2);
+	ft_stack_add_front(limits, ft_stack_new(new));
+	ft_stack_sort(limits);
 }
+
 
 /*
 ** This function iterates stack_a, from the top and finds the first number with
@@ -146,7 +115,7 @@ int	get_hold_first(t_stack *stack_a, t_stack *limits)
 	first = 0;
 	while (stack_a)
 	{
-		if (stack_a->data > min && stack_a->data < max)
+		if (stack_a->data >= min && stack_a->data <= max)
 			return (first);
 		first++;
 		stack_a = stack_a->next;
@@ -179,7 +148,7 @@ int	get_hold_second(t_stack *stack_a, t_stack *limits)
 	second = 1;
 	while (stack_a)
 	{
-		if (stack_a->data > min && stack_a->data < max)
+		if (stack_a->data >= min && stack_a->data <= max)
 			return (second);
 		second++;
 		stack_a = stack_a->previous;
