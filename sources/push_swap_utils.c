@@ -6,7 +6,7 @@
 /*   By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/02 19:03:16 by mlanca-c          #+#    #+#             */
-/*   Updated: 2021/06/09 16:31:31 by mlanca-c         ###   ########.fr       */
+/*   Updated: 2021/06/09 20:00:05 by mlanca-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,34 +62,27 @@ void	push_min_to_b(t_stack **stack_a, t_stack **stack_b)
 ** @line 77-78	new is added to limits and limits is sorted so that it contains
 ** 				all the partitions of stack_a in order.
 */
-void	get_new_limit_stack_a(t_stack **limits, t_stack *stack_a)
+void	get_new_limit(t_stack **limits, t_stack *stack, int status)
 {
 	t_stack	*duplicate;
 	int		min_idx;
 	int		max_idx;
 	int		new;
 
-	duplicate = ft_stack_duplicate(stack_a);
+	duplicate = ft_stack_duplicate(stack);
 	ft_stack_sort(&duplicate);
-	min_idx = ft_stack_find(duplicate, (*limits)->data);
-	max_idx = ft_stack_find(duplicate, (*limits)->next->data);
-	new = ft_stack_get(duplicate, ((max_idx - min_idx) / 2 + min_idx));
+	if (status)
+	{
+		min_idx = ft_stack_find(duplicate, (*limits)->data);
+		max_idx = ft_stack_find(duplicate, (*limits)->next->data);
+		new = ft_stack_get(duplicate, ((max_idx - min_idx) / 2 + min_idx));
+	}
+	else
+		new = ft_stack_get(duplicate, ft_stack_size(duplicate) / 2);
 	ft_stack_add_front(limits, ft_stack_new(new));
 	ft_stack_sort(limits);
+	ft_stack_clear(&duplicate);
 }
-
-void	get_new_limit_stack_b(t_stack **limits, t_stack *stack_a)
-{
-	t_stack	*duplicate;
-	int		new;
-
-	duplicate = ft_stack_duplicate(stack_a);
-	ft_stack_sort(&duplicate);
-	new = ft_stack_get(duplicate, ft_stack_size(duplicate) / 2);
-	ft_stack_add_front(limits, ft_stack_new(new));
-	ft_stack_sort(limits);
-}
-
 
 /*
 ** This function iterates stack_a, from the top and finds the first number with
@@ -154,4 +147,24 @@ int	get_hold_second(t_stack *stack_a, t_stack *limits)
 		stack_a = stack_a->previous;
 	}
 	return (second);
+}
+
+/*
+ * This function 
+*/
+int	get_next_value(t_stack *stack_a, t_stack **limits)
+{
+	t_stack	*duplicate;
+	int		position;
+	int		minimum;
+
+	duplicate = ft_stack_duplicate(stack_a);
+	ft_stack_sort(&duplicate);
+	position = ft_stack_find(duplicate, (*limits)->next->data);
+	minimum = ft_stack_get(duplicate, position);
+	if (minimum == ft_stack_last(duplicate)->data)
+		return (minimum);
+	else
+		minimum = ft_stack_get(duplicate, position + 1);
+	return (minimum);
 }
