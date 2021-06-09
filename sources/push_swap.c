@@ -6,7 +6,7 @@
 /*   By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/02 14:46:38 by mlanca-c          #+#    #+#             */
-/*   Updated: 2021/06/08 18:20:28 by mlanca-c         ###   ########.fr       */
+/*   Updated: 2021/06/09 18:38:23 by mlanca-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,23 +170,20 @@ void	sorting_medium_algorithm(t_stack **stack_a, t_stack **stack_b)
 void	sorting_big_algorithm(t_stack **stack_a, t_stack **stack_b,
 		t_stack **limits, int i)
 {
-	int	rra;
-
 	if (ft_stack_size(*limits) == 1)
 	{
 		ft_stack_clear(limits);
 		return ;
 	}
 	if (ft_stack_size(*limits) == 2
-		&& count_in_between(*stack_a, *limits) >= 20)
-		get_new_limit(limits, *stack_a);
+		&& count_in_between(*stack_a, *limits) >= MAX_SIZE)
+		get_new_limit_stack_a(limits, *stack_a);
 	if (!ft_stack_size(*stack_b))
 	{
-		rra = split_a_to_b(stack_a, stack_b, *limits);
-		while (rra-- && i)
-			reverse_rotate_stack(stack_a, 0, "rra\n");
+		split_a_to_b(stack_a, stack_b, *limits);
+		rotate_until_sorted(stack_a, *limits);
 	}
-	if (ft_stack_size(*stack_b) >= 20)
+	if (ft_stack_size(*stack_b) >= MAX_SIZE)
 		merge_half_to_a(stack_a, stack_b, *limits);
 	else
 	{
