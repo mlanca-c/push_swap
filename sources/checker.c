@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/25 10:39:52 by mlanca-c          #+#    #+#             */
-/*   Updated: 2021/05/26 13:06:55 by mlanca-c         ###   ########.fr       */
+/*   Created: 2021/06/14 12:21:16 by mlanca-c          #+#    #+#             */
+/*   Updated: 2021/06/14 12:21:36 by mlanca-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,4 +184,3 @@ void	exit_checker(t_stack *stack_a, t_stack *stack_b, t_list *instructions,
 	}
 	exit(EXIT_FAILURE);
 }
-	
