@@ -6,7 +6,7 @@
 /*   By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/02 19:03:16 by mlanca-c          #+#    #+#             */
-/*   Updated: 2021/06/09 20:00:05 by mlanca-c         ###   ########.fr       */
+/*   Updated: 2021/06/14 12:46:09 by mlanca-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 ** push it to stack_b.
 **
 ** @param	t_stack	**stack_a	- stack to iterate in search of minimum value.
-** @param	t_stack	**stack_a	- stack to push minimum value integer to.
+** @param	t_stack	**stack_b	- stack to push minimum value integer to.
 */
 void	push_min_to_b(t_stack **stack_a, t_stack **stack_b)
 {
@@ -150,7 +150,22 @@ int	get_hold_second(t_stack *stack_a, t_stack *limits)
 }
 
 /*
- * This function 
+** This function is a helper function of merge_sort_to_a() function. It will
+** return the minimum number of stack_a that is not sorted, as the new limit.
+**
+** 		example:
+** 			limits: {12, 25, 50, 100}
+** 			stack_a: [1, 12] sorted
+** 					]12, 100] unsorted
+** 			new limits: {13, 25, 50, 100}
+**
+** @param	t_stack	*stack_a	- stack to get the new limit from.
+**
+** @param	t_stack	**limits	- stack that contains the old limit.
+**
+** @return
+** 		- the get_next_value() function returns the new limits to be added to
+** 		'limits' later in merge_sort_to_a() function.
 */
 int	get_next_value(t_stack *stack_a, t_stack **limits)
 {
