@@ -6,7 +6,7 @@
 /*   By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/28 10:36:15 by mlanca-c          #+#    #+#             */
-/*   Updated: 2021/06/09 19:57:08 by mlanca-c         ###   ########.fr       */
+/*   Updated: 2021/06/14 12:46:08 by mlanca-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,17 +54,12 @@ void	split_a_to_b(t_stack **stack_a, t_stack **stack_b, t_stack *limits)
 		first = get_hold_first(*stack_a, limits);
 		second = get_hold_second(*stack_a, limits);
 		if (first <= second)
-		{
 			while (first--)
 				rotate_stack(stack_a, 0, "ra\n");
-			push_stack(stack_a, stack_b, "pb\n");
-		}
 		else
-		{
 			while (second--)
 				reverse_rotate_stack(stack_a, 0, "rra\n");
-			push_stack(stack_a, stack_b, "pb\n");
-		}
+		push_stack(stack_a, stack_b, "pb\n");
 	}
 }
 
@@ -106,14 +101,14 @@ void	merge_half_to_a(t_stack **stack_a, t_stack **stack_b, t_stack *limits)
 }
 
 /*
- * This function merges the rest of stack_b' to 'stack_a' in a sorted matter.
- *
- * @param	t_stack	**stack_a	- stack where the numbers will go back to
- * 								sorted.
- * @param	t_stack	**stack_b	- stack where the numbers where. At the end
- * 								this stack will be empty.
- * @param	t_stack	*limits		- stack that contains the limits of the
- * 								partitions of the other stacks.
+** This function merges the rest of stack_b' to 'stack_a' in a sorted matter.
+**
+** @param	t_stack	**stack_a	- stack where the numbers will go back to
+** 								sorted.
+** @param	t_stack	**stack_b	- stack where the numbers where. At the end
+** 								this stack will be empty.
+** @param	t_stack	*limits		- stack that contains the limits of the
+** 								partitions of the other stacks.
 */
 void	merge_sort_to_a(t_stack **stack_a, t_stack **stack_b, t_stack *limits)
 {
@@ -127,8 +122,8 @@ void	merge_sort_to_a(t_stack **stack_a, t_stack **stack_b, t_stack *limits)
 		{
 			push_stack(stack_b, stack_a, "pa\n");
 			duplicate = duplicate->next;
-			if (ft_stack_size(*stack_b) && (*stack_b)->data != ft_stack_max_value(*stack_b)
-				&& (*stack_b)->data != duplicate->data)
+			 if (ft_stack_size(*stack_b) && (*stack_b)->data != duplicate->data
+				&& (*stack_b)->data != ft_stack_max_value(*stack_b))
 				rotate_stack(stack_a, stack_b, "rr\n");
 			else
 				rotate_stack(stack_a, 0, "ra\n");
@@ -145,30 +140,47 @@ void	merge_sort_to_a(t_stack **stack_a, t_stack **stack_b, t_stack *limits)
 }
 
 /*
+** This function rotates stack_a until the sorted numbers are found at the
+** bottom of the stack sorted in descending order.
+**
+** @param	t_stack	*stack_a	- stack to sort.
+**
+** @param	t_stack	**limits	- helper stack to know values of stack_a that
+** 								are sorted.
 */
 void	rotate_until_sorted(t_stack **stack_a, t_stack *limits)
 {
 	t_stack	*duplicate;
-	int		number;
+	int		num;
 	int		index;
 
 	duplicate = ft_stack_duplicate(*stack_a);
 	ft_stack_add_front(&duplicate, ft_stack_new(limits->data));
 	ft_stack_sort(&duplicate);
-	number = ft_stack_get(duplicate, ft_stack_find(duplicate, limits->data) - 1);
-	index = ft_stack_find(*stack_a, number);
-	if (number == -2147483648 || index == -2147483648)
+	num = ft_stack_get(duplicate, ft_stack_find(duplicate, limits->data) - 1);
+	index = ft_stack_find(*stack_a, num);
+	if (num == -2147483648 || index == -2147483648)
 		return ;
 	if (index <= ft_stack_size(*stack_a) / 2)
-		while (ft_stack_last(*stack_a)->data != number)
+		while (ft_stack_last(*stack_a)->data != num)
 			rotate_stack(stack_a, 0, "ra\n");
 	else
-		while (ft_stack_last(*stack_a)->data != number)
+		while (ft_stack_last(*stack_a)->data != num)
 			reverse_rotate_stack(stack_a, 0, "rra\n");
 	ft_stack_clear(&duplicate);
 }
 
 /*
+** This function takes a stack - 'stack_a' and counts its numbers in between the
+** first two elements of the stack 'limits'.
+**
+** @param	t_stack	*stack_a	- stack to count numbers from.
+**
+** @param	t_stack	**limits	- helper stack to know the limits of stack_a.
+** 
+** @return
+** 		- The count_in_between() function returns the number of elements in
+** 		between 'limits's' first two elements that exist in stack_a.
 */
 int	count_in_between(t_stack *stack_a, t_stack *limits)
 {
