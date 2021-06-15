@@ -9,7 +9,7 @@
  make all
  ```
 
-# Usage 
+# Compiling
 
  ```
  ARG="<random numbers>";./push_swap $ARG | ./checker [-v] $ARG [> visualizer]
