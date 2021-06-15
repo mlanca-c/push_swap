@@ -6,7 +6,7 @@
 /*   By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/23 20:50:25 by mlanca-c          #+#    #+#             */
-/*   Updated: 2021/06/09 18:48:03 by mlanca-c         ###   ########.fr       */
+/*   Updated: 2021/06/15 15:40:56 by mlanca-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	get_sorting(t_stack **stack_a, t_stack **stack_b);
 void	sorting_small_algorithm(t_stack **stack_a);
 void	sorting_medium_algorithm(t_stack **stack_a, t_stack **stack_b);
 void	sorting_big_algorithm(t_stack **stack_a, t_stack **stack_b,
-		t_stack **limits, int i);
+			t_stack **limits, int i);
 
 /*
 ** push_swap_utils.c Functions
