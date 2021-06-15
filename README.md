@@ -32,3 +32,4 @@
  * [Merge-Sort Implementation and Explanation](https://www.geeksforgeeks.org/merge-sort-for-doubly-linked-list/)
  * [Random Number Generator](https://numbergenerator.org/)
  * [brhaka's Push_Swap Speed Tester](https://gist.github.com/brhaka/af12a3b49812014c5cea47301659e750)
+ * [Visualizer](https://github.com/o-reo/push_swap_visualizer)
