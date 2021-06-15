@@ -31,3 +31,4 @@
  * [Double Linked List - implementation](https://www.geeksforgeeks.org/doubly-linked-list/)
  * [Merge-Sort Implementation and Explanation](https://www.geeksforgeeks.org/merge-sort-for-doubly-linked-list/)
  * [Random Number Generator](https://numbergenerator.org/)
+ * [brhaka's Push_Swap Speed Tester](https://gist.github.com/brhaka/af12a3b49812014c5cea47301659e750)
