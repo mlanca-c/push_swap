@@ -1,12 +1,12 @@
 # push_swap
 
-[![Updated Badge](https://badges.pufler.dev/updated/mlanca-c/push_swap)](https://github.com/mlanca-c/push_swap)
+[![Updated Badge](https://img.shields.io/eclipse-marketplace/last-update/push_swap)](https://github.com/mlanca-c/push_swap)
 [![Created Badge](https://badges.pufler.dev/created/mlanca-c/push_swap)](https://github.com/mlanca-c/push_swap)
 [![Version](https://img.shields.io/github/v/tag/mlanca-c/push_swap)](https://github.com/mlanca-c/push_swap)
-[![Downloads](https://img.shields.io/apm/dm/mlanca-c/push_swap)](https://github.com/mlanca-c/push_swap)
+[![Downloads](https://img.shields.io/chocolatey/dt/push_swap)](https://github.com/mlanca-c/push_swap)
 
 
-[![Size](https://img.shields.io/github/languages/code-size/mlanca-c/push_swap)](https://github.com/mlanca-c/push_swap)
+[![Size](https://img.shields.io/github/size/mlanca-c/push_swap)](https://github.com/mlanca-c/push_swap)
  42Cursus-push_swap/42Lisboa 
 
 # Cloning
