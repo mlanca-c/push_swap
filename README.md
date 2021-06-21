@@ -5,7 +5,7 @@
  [![Version](https://img.shields.io/github/go-mod/go-version/mlanca-c/push_swap?color=blue&label=Version&logo=Version&logoColor=blue&style=for-the-badge)](https://github.com/mlanca-c/push_swap)
  
  
- [![Activity](https://img.shields.io/github/commit-activity/m/mlanca-c/push_swap?label=Commit%20Actvity&style=for-the-badge)]
+ [![Activity](https://img.shields.io/github/commit-activity/m/mlanca-c/push_swap?label=Commit%20Actvity&style=for-the-badge)](https://github.com/mlanca-c/push_swap)
  
  
  [![Downloads](https://img.shields.io/chocolatey/dt/push_swap)](https://github.com/mlanca-c/push_swap)
