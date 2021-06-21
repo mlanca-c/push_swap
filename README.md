@@ -1,9 +1,12 @@
 # push_swap
-[![Size](https://badge-size.herokuapp.com/Naereen/StrapDown.js/master/strapdown.min.js)](https://github.com/mlanca-c/push_swap)
-[![Version](https://badge.fury.io/gh/Naereen%2FStrapDown.js.svg)](https://github.com/mlanca-c/push_swap)
-[![Downloads](https://img.shields.io/packagecontrol/dt/SwitchDictionary.svg)](https://github.com/mlanca-c/push_swap)
+
+[![Updated Badge](https://badges.pufler.dev/updated/mlanca-c/push_swap)](https://github.com/mlanca-c/push_swap)
+[![Created Badge](https://badges.pufler.dev/created/mlanca-c/push_swap)](https://github.com/mlanca-c/push_swap)
+[![Version](https://img.shields.io/github/v/tag/mlanca-c/push_swap)](https://github.com/mlanca-c/push_swap)
+[![Downloads](https://img.shields.io/apm/dm/mlanca-c/push_swap)](https://github.com/mlanca-c/push_swap)
 
 
+[![Size](https://img.shields.io/github/languages/code-size/mlanca-c/push_swap)](https://github.com/mlanca-c/push_swap)
  42Cursus-push_swap/42Lisboa 
 
 # Cloning
