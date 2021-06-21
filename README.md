@@ -1,9 +1,7 @@
 # push_swap
  
  [![Size](https://img.shields.io/github/repo-size/mlanca-c/push_swap?color=orange&label=SIZE&logo=Size&style=for-the-badge)](https://github.com/mlanca-c/push_swap) 
- 
  [![Activity](https://img.shields.io/github/commit-activity/m/mlanca-c/push_swap?color=blue&label=Commit%20Actvity&logoColor=blue&style=for-the-badge)](https://github.com/mlanca-c/push_swap)
- 
  [![Downloads](https://img.shields.io/github/downloads/mlanca-c/push_swap/total?color=yellow&label=Downloads&logo=Downloads&logoColor=red&style=for-the-badge)](https://github.com/mlanca-c/push_swap)
 
  42Cursus-push_swap/42Lisboa 
