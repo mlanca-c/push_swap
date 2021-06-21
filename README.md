@@ -2,6 +2,8 @@
  [![Created Badge](https://badges.pufler.dev/created/mlanca-c/push_swap)](https://github.com/mlanca-c/push_swap)
  
  [![Size](https://img.shields.io/github/repo-size/mlanca-c/push_swap?color=orange&label=SIZE&logo=Size&style=for-the-badge)](https://github.com/mlanca-c/push_swap)
+ 
+ 
  [![Version](https://img.shields.io/github/go-mod/go-version/mlanca-c/push_swap?color=blue&label=Version&logo=Version&logoColor=blue&style=for-the-badge)](https://github.com/mlanca-c/push_swap)
  
  
