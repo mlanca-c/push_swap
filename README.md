@@ -2,7 +2,7 @@
  
  [![Size](https://img.shields.io/github/repo-size/mlanca-c/push_swap?color=orange&label=SIZE&logo=Size&style=for-the-badge)](https://github.com/mlanca-c/push_swap) 
  [![Activity](https://img.shields.io/github/commit-activity/m/mlanca-c/push_swap?color=blue&label=Commit%20Actvity&logoColor=blue&style=for-the-badge)](https://github.com/mlanca-c/push_swap)
- [![Stars](https://img.shields.io/github/stars/mlanca-c/push_swap.svg?&logoColor=yellow&style=for-the-badge)](https://github.com/mlanca-c/push_swap)
+ [![Stars](https://img.shields.io/github/stars/mlanca-c/push_swap.svg?logoColor=yellow&style=for-the-badge)](https://github.com/mlanca-c/push_swap)
  
  42Cursus-push_swap/42Lisboa 
 
