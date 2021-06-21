@@ -4,6 +4,7 @@
  [![Size](https://img.shields.io/github/repo-size/mlanca-c/push_swap?color=orange&label=SIZE&logo=Size&style=for-the-badge)](https://github.com/mlanca-c/push_swap) 
  [![Activity](https://img.shields.io/github/last-commit/mlanca-c/push_swap?style=for-the-badge)](https://github.com/mlanca-c/push_swap)
  
+ [![Intro](https://img.shields.io/badge/Cursus-push__swap-success?style=for-the-badge&logo=42)](https://github.com/mlanca-c/push_swap)
  42Cursus-push_swap/42Lisboa 
 
 # Cloning
