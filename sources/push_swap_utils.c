@@ -6,7 +6,7 @@
 /*   By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/02 19:03:16 by mlanca-c          #+#    #+#             */
-/*   Updated: 2021/06/14 12:46:09 by mlanca-c         ###   ########.fr       */
+/*   Updated: 2021/06/23 14:20:26 by mlanca-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	get_new_limit(t_stack **limits, t_stack *stack, int status)
 	{
 		min_idx = ft_stack_find(duplicate, (*limits)->data);
 		max_idx = ft_stack_find(duplicate, (*limits)->next->data);
-		new = ft_stack_get(duplicate, ((max_idx - min_idx) / 2 + min_idx));
+		new = ft_stack_get(duplicate, ((max_idx - min_idx) / 2 + min_idx + 3));
 	}
 	else
 		new = ft_stack_get(duplicate, ft_stack_size(duplicate) / 2);
