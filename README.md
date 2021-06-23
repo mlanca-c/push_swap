@@ -1,11 +1,11 @@
 # push_swap
  
- [![Size](https://img.shields.io/github/repo-size/mlanca-c/push_swap?color=orange&label=SIZE&logo=Size&style=for-the-badge)](https://github.com/mlanca-c/push_swap) 
- [![Activity](https://img.shields.io/github/commit-activity/m/mlanca-c/push_swap?color=blue&label=Commit%20Actvity&logoColor=blue&style=for-the-badge)](https://github.com/mlanca-c/push_swap)
- [![Downloads](https://img.shields.io/github/downloads/mlanca-c/push_swap/total?color=yellow&label=Downloads&logo=Downloads&logoColor=red&style=for-the-badge)](https://github.com/mlanca-c/push_swap)
-
- 42Cursus-push_swap/42Lisboa 
-
+ [![Intro](https://img.shields.io/badge/Cursus-push__swap-success?style=for-the-badge&logo=42)](https://github.com/mlanca-c/push_swap)
+ 
+ [![Stars](https://img.shields.io/github/stars/mlanca-c/push_swap?color=ffff00&label=Stars&logo=Stars&style=?style=flat)](https://github.com/mlanca-c/push_swap)
+ [![Size](https://img.shields.io/github/repo-size/mlanca-c/push_swap?color=blue&label=Size&logo=Size&style=?style=flat)](https://github.com/mlanca-c/push_swap) 
+ [![Activity](https://img.shields.io/github/last-commit/mlanca-c/push_swap?color=red&label=Last%20Commit&style=flat)](https://github.com/mlanca-c/push_swap)
+ 
 # Cloning
 
  ```
