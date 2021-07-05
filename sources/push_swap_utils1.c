@@ -6,7 +6,7 @@
 /*   By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/28 10:36:15 by mlanca-c          #+#    #+#             */
-/*   Updated: 2021/06/21 12:35:43 by mlanca-c         ###   ########.fr       */
+/*   Updated: 2021/07/05 17:48:22 by mlanca-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,9 +107,11 @@ void	merge_half_to_a(t_stack **stack_a, t_stack **stack_b, t_stack *limits)
 void	merge_sort_to_a(t_stack **stack_a, t_stack **stack_b, t_stack *limits)
 {
 	t_stack	*duplicate;
+	t_stack	*head;
 
 	duplicate = ft_stack_duplicate(*stack_b);
 	ft_stack_sort(&duplicate);
+	head = duplicate;
 	while (ft_stack_size(*stack_b))
 	{
 		if ((*stack_b)->data == duplicate->data)
@@ -130,7 +132,7 @@ void	merge_sort_to_a(t_stack **stack_a, t_stack **stack_b, t_stack *limits)
 	while (ft_stack_last(*stack_a)->data != limits->next->data)
 		rotate_stack(stack_a, 0, "ra\n");
 	limits->next->data = get_next_value(*stack_a, &limits);
-	ft_stack_clear(&duplicate);
+	ft_stack_clear(&head);
 }
 
 /*
@@ -152,6 +154,7 @@ void	rotate_until_sorted(t_stack **stack_a, t_stack *limits)
 	ft_stack_add_front(&duplicate, ft_stack_new(limits->data));
 	ft_stack_sort(&duplicate);
 	num = ft_stack_get(duplicate, ft_stack_find(duplicate, limits->data) - 1);
+	ft_stack_clear(&duplicate);
 	index = ft_stack_find(*stack_a, num);
 	if (num == -2147483648 || index == -2147483648)
 		return ;
@@ -161,7 +164,6 @@ void	rotate_until_sorted(t_stack **stack_a, t_stack *limits)
 	else
 		while (ft_stack_last(*stack_a)->data != num)
 			reverse_rotate_stack(stack_a, 0, "rra\n");
-	ft_stack_clear(&duplicate);
 }
 
 /*

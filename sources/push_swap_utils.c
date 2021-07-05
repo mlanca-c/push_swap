@@ -6,7 +6,7 @@
 /*   By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/02 19:03:16 by mlanca-c          #+#    #+#             */
-/*   Updated: 2021/06/23 14:39:46 by mlanca-c         ###   ########.fr       */
+/*   Updated: 2021/07/05 17:49:56 by mlanca-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,8 +178,12 @@ int	get_next_value(t_stack *stack_a, t_stack **limits)
 	position = ft_stack_find(duplicate, (*limits)->next->data);
 	minimum = ft_stack_get(duplicate, position);
 	if (minimum == ft_stack_last(duplicate)->data)
+	{
+		ft_stack_clear(&duplicate);
 		return (minimum);
+	}
 	else
 		minimum = ft_stack_get(duplicate, position + 1);
+	ft_stack_clear(&duplicate);
 	return (minimum);
 }
