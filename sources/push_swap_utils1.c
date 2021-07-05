@@ -6,7 +6,7 @@
 /*   By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/28 10:36:15 by mlanca-c          #+#    #+#             */
-/*   Updated: 2021/07/05 17:48:22 by mlanca-c         ###   ########.fr       */
+/*   Updated: 2021/07/05 22:26:27 by mlanca-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,11 +107,9 @@ void	merge_half_to_a(t_stack **stack_a, t_stack **stack_b, t_stack *limits)
 void	merge_sort_to_a(t_stack **stack_a, t_stack **stack_b, t_stack *limits)
 {
 	t_stack	*duplicate;
-	t_stack	*head;
 
 	duplicate = ft_stack_duplicate(*stack_b);
 	ft_stack_sort(&duplicate);
-	head = duplicate;
 	while (ft_stack_size(*stack_b))
 	{
 		if ((*stack_b)->data == duplicate->data)
@@ -132,7 +130,7 @@ void	merge_sort_to_a(t_stack **stack_a, t_stack **stack_b, t_stack *limits)
 	while (ft_stack_last(*stack_a)->data != limits->next->data)
 		rotate_stack(stack_a, 0, "ra\n");
 	limits->next->data = get_next_value(*stack_a, &limits);
-	ft_stack_clear(&head);
+	ft_stack_clear(&duplicate);
 }
 
 /*

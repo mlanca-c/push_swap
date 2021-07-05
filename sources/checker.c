@@ -6,7 +6,7 @@
 /*   By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 12:21:16 by mlanca-c          #+#    #+#             */
-/*   Updated: 2021/07/05 18:45:44 by mlanca-c         ###   ########.fr       */
+/*   Updated: 2021/07/05 22:38:30 by mlanca-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ int	main(int argc, char **argv)
 	get_instructions(&stack_a, &instructions);
 	call_instruction(&stack_a, &stack_b, instructions, mode);
 	if (ft_stack_is_sorted(stack_a) && !stack_b)
-		exit_checker(stack_a, stack_b, instructions, 2);
-	exit_checker(stack_a, stack_b, instructions, 1);
+		exit_checker(stack_a, stack_b, &instructions, 2);
+	exit_checker(stack_a, stack_b, &instructions, 1);
 	return (0);
 }
 
@@ -82,13 +82,13 @@ void	get_instructions(t_stack **stack_a, t_list **instructions)
 				|| !ft_strcmp("rrr", line)))
 		{
 			free(line);
-			exit_checker(*stack_a, 0, *instructions, 0);
+			exit_checker(*stack_a, 0, instructions, 0);
 		}
 		new_node = ft_lstnew(line);
 		if (!new_node)
 		{
 			free(line);
-			exit_checker(*stack_a, 0, *instructions, 0);
+			exit_checker(*stack_a, 0, instructions, 0);
 		}
 		ft_lstadd_back(instructions, new_node);
 	}
@@ -169,15 +169,21 @@ void	implement_instruction(t_stack **stack_a, t_stack **stack_b,
 ** 							sorted.
 ** 						2 - In case the program ended with stack_a being sorted.
 */
-void	exit_checker(t_stack *stack_a, t_stack *stack_b, t_list *instructions,
+void	exit_checker(t_stack *stack_a, t_stack *stack_b, t_list **instructions,
 			int status)
 {
 	if (stack_a)
 		ft_stack_clear(&stack_a);
 	if (stack_b)
 		ft_stack_clear(&stack_b);
-	if (instructions)
-		ft_lstclear(&instructions);
+	if (*instructions)
+	{
+		while (*instructions)
+		{
+			free((*instructions)->content);
+			ft_lstremove(instructions);
+		}
+	}
 	if (!status)
 		ft_putstr_fd("Error\n", 2);
 	else if (status == 1)
