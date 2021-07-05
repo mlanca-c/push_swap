@@ -6,7 +6,7 @@
 /*   By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 12:21:16 by mlanca-c          #+#    #+#             */
-/*   Updated: 2021/07/05 18:30:57 by mlanca-c         ###   ########.fr       */
+/*   Updated: 2021/07/05 18:45:44 by mlanca-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,11 @@ void	get_instructions(t_stack **stack_a, t_list **instructions)
 			exit_checker(*stack_a, 0, *instructions, 0);
 		}
 		new_node = ft_lstnew(line);
-		free(line);
 		if (!new_node)
+		{
+			free(line);
 			exit_checker(*stack_a, 0, *instructions, 0);
+		}
 		ft_lstadd_back(instructions, new_node);
 	}
 	free(line);
