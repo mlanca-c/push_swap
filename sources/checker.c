@@ -6,7 +6,7 @@
 /*   By: mlanca-c <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 12:21:16 by mlanca-c          #+#    #+#             */
-/*   Updated: 2021/06/14 12:21:36 by mlanca-c         ###   ########.fr       */
+/*   Updated: 2021/07/05 18:30:57 by mlanca-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,17 +74,20 @@ void	get_instructions(t_stack **stack_a, t_list **instructions)
 
 	while (get_next_line(STDIN_FILENO, &line))
 	{
-		new_node = ft_lstnew(line);
 		if (!(!ft_strcmp("sa", line) || !ft_strcmp("sb", line)
 				|| !ft_strcmp("ss", line) || !ft_strcmp("pa", line)
 				|| !ft_strcmp("pb", line) || !ft_strcmp("ra", line)
 				|| !ft_strcmp("rb", line) || !ft_strcmp("rr", line)
 				|| !ft_strcmp("rra", line) || !ft_strcmp("rrb", line)
-				|| !ft_strcmp("rrr", line)) || !new_node)
+				|| !ft_strcmp("rrr", line)))
 		{
 			free(line);
 			exit_checker(*stack_a, 0, *instructions, 0);
 		}
+		new_node = ft_lstnew(line);
+		free(line);
+		if (!new_node)
+			exit_checker(*stack_a, 0, *instructions, 0);
 		ft_lstadd_back(instructions, new_node);
 	}
 	free(line);
